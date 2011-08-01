@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.codehaus.sonar-plugins</groupId>
+    <artifactId>parent</artifactId>
+    <version>10</version>
+    <relativePath>../../parent</relativePath>
+  </parent>
+  <groupId>org.codehaus.sonar-plugins.l10n</groupId>
+  <artifactId>sonar-l10n-fr-plugin</artifactId>
+  <packaging>sonar-plugin</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>L10n :: French Pack</name>
+  <inceptionYear>2011</inceptionYear>
+
+  <organization>
+    <name>SonarSource</name>
+    <url>http://www.sonarsource.com</url>
+  </organization>
+
+  <licenses>
+    <license>
+      <name>GNU LGPL 3</name>
+      <url>http://www.gnu.org/licenses/lgpl.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.codehaus.sonar</groupId>
+      <artifactId>sonar-plugin-api</artifactId>
+      <version>2.9</version>
+    </dependency>
+  </dependencies>
+
+  <properties>
+    <sonar.pluginClass>org.sonar.plugins.l10n.FrenchPackPlugin</sonar.pluginClass>
+  </properties>
+
+  <developers>
+    <developer>
+      <id>fabrice.bellingard</id>
+      <name>Fabrice Bellingard</name>
+      <organizationUrl>http://sonarsource.com</organizationUrl>
+    </developer>
+    <developer>
+      <id>simon.brandhof</id>
+      <name>Simon Brandhof</name>
+      <organizationUrl>http://sonarsource.com</organizationUrl>
+    </developer>
+  </developers>
+
+  <contributors>
+    <contributor>
+      <name>David Festal</name>
+      <organizationUrl>http://serli.com</organizationUrl>
+    </contributor>
+  </contributors>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.sonar</groupId>
+        <artifactId>sonar-packaging-maven-plugin</artifactId>
+        <extensions>true</extensions>
+        <configuration>
+          <basePlugin>l10nen</basePlugin>
+          <pluginName>French Pack</pluginName>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>native2ascii-maven-plugin</artifactId>
+        <version>1.0-alpha-1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>native2ascii</goal>
+            </goals>
+            <!-- specific configurations -->
+            <configuration>
+              <encoding>UTF8</encoding>
+              <src>${basedir}/src/main/resources</src>
+              <dest>${project.build.outputDirectory}</dest>
+              <includes>**/*.properties</includes>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <scm>
+    <connection>scm:svn:http://svn.codehaus.org/sonar-plugins/trunk/i18n/sonar-i18n-fr-plugin</connection>
+    <developerConnection>scm:svn:https://svn.codehaus.org/sonar-plugins/trunk/i18n/sonar-i18n-fr-plugin</developerConnection>
+    <url>http://svn.sonar-plugins.codehaus.org</url>
+  </scm>
+
+  <profiles>
+    <profile>
+      <id>m2e</id>
+      <activation>
+        <!-- This profile is active only when used from Eclipse m2e and is used
+              only to store settings. -->
+        <property>
+          <name>m2e.version</name>
+        </property>
+      </activation>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.eclipse.m2e</groupId>
+              <artifactId>lifecycle-mapping</artifactId>
+              <version>1.0.0</version>
+              <configuration>
+                <lifecycleMappingMetadata>
+                  <pluginExecutions>
+                    <pluginExecution>
+                      <pluginExecutionFilter>
+                        <groupId>
+                          com.mycila.maven-license-plugin
+                        </groupId>
+                        <artifactId>
+                          maven-license-plugin
+                        </artifactId>
+                        <versionRange>
+                          [1.9.0,)
+                        </versionRange>
+                        <goals>
+                          <goal>check</goal>
+                        </goals>
+                      </pluginExecutionFilter>
+                      <action>
+                        <ignore></ignore>
+                      </action>
+                    </pluginExecution>
+                    <pluginExecution>
+                      <pluginExecutionFilter>
+                        <groupId>org.codehaus.sonar</groupId>
+                        <artifactId>sonar-packaging-maven-plugin</artifactId>
+                        <versionRange>[1.0,)</versionRange>
+                        <goals>
+                          <goal>check-dependencies</goal>
+                        </goals>
+                      </pluginExecutionFilter>
+                      <action>
+                        <ignore></ignore>
+                      </action>
+                    </pluginExecution>
+                    <pluginExecution>
+                      <pluginExecutionFilter>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>native2ascii-maven-plugin</artifactId>
+                        <versionRange>[1.0-alpha-1,)</versionRange>
+                        <goals>
+                          <goal>native2ascii</goal>
+                        </goals>
+                      </pluginExecutionFilter>
+                      <action>
+                        <ignore></ignore>
+                      </action>
+                    </pluginExecution>
+                  </pluginExecutions>
+                </lifecycleMappingMetadata>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
+    </profile>
+  </profiles>
+</project>
