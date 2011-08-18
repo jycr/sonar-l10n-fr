@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.codehaus.sonar-plugins</groupId>
@@ -10,7 +11,7 @@
   <groupId>org.codehaus.sonar-plugins.l10n</groupId>
   <artifactId>sonar-l10n-fr-plugin</artifactId>
   <packaging>sonar-plugin</packaging>
-  <version>1.0</version>
+  <version>1.0-SNAPSHOT</version>
   <name>L10n :: French Pack</name>
   <inceptionYear>2011</inceptionYear>
 
@@ -94,9 +95,9 @@
   </build>
 
   <scm>
-    <connection>scm:svn:http://svn.codehaus.org/sonar-plugins/tags/sonar-l10n-fr-plugin-1.0</connection>
-    <developerConnection>scm:svn:https://svn.codehaus.org/sonar-plugins/tags/sonar-l10n-fr-plugin-1.0</developerConnection>
-    <url>scm:svn:https://svn.codehaus.org/sonar-plugins/tags/sonar-l10n-fr-plugin-1.0</url>
+    <connection>scm:svn:http://svn.codehaus.org/sonar-plugins/trunk/l10n/fr/sonar-l10n-fr-plugin</connection>
+    <developerConnection>scm:svn:https://svn.codehaus.org/sonar-plugins/trunk/l10n/fr/sonar-l10n-fr-plugin</developerConnection>
+    <url>http://svn.sonar-plugins.codehaus.org</url>
   </scm>
 
   <profiles>
@@ -135,7 +136,7 @@
                         </goals>
                       </pluginExecutionFilter>
                       <action>
-                        <ignore />
+                        <ignore></ignore>
                       </action>
                     </pluginExecution>
                     <pluginExecution>
@@ -148,7 +149,7 @@
                         </goals>
                       </pluginExecutionFilter>
                       <action>
-                        <ignore />
+                        <ignore></ignore>
                       </action>
                     </pluginExecution>
                     <pluginExecution>
@@ -161,7 +162,7 @@
                         </goals>
                       </pluginExecutionFilter>
                       <action>
-                        <ignore />
+                        <ignore></ignore>
                       </action>
                     </pluginExecution>
                   </pluginExecutions>
