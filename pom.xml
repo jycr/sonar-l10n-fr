@@ -27,22 +27,23 @@
     </license>
   </licenses>
 
+  <properties>
+    <sonar.pluginClass>org.sonar.plugins.l10n.FrenchPackPlugin</sonar.pluginClass>
+    <sonar.version>2.11-SNAPSHOT</sonar.version>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.codehaus.sonar</groupId>
       <artifactId>sonar-plugin-api</artifactId>
-      <version>2.10</version>
+      <version>${sonar.version}</version>
     </dependency>
     <dependency>
       <groupId>org.codehaus.sonar</groupId>
       <artifactId>sonar-testing-harness</artifactId>
-      <version>2.11-SNAPSHOT</version>
+      <version>${sonar.version}</version>
     </dependency>
   </dependencies>
-
-  <properties>
-    <sonar.pluginClass>org.sonar.plugins.l10n.FrenchPackPlugin</sonar.pluginClass>
-  </properties>
 
   <developers>
     <developer>
@@ -65,6 +66,13 @@
   </contributors>
 
   <build>
+    <testResources>
+      <testResource>
+        <directory>src/test/resources</directory>
+        <filtering>true</filtering>
+      </testResource>
+    </testResources>
+  
     <plugins>
       <plugin>
         <groupId>org.codehaus.sonar</groupId>

@@ -20,7 +20,8 @@
 package org.sonar.plugins.l10n;
 
 import static org.junit.Assert.assertThat;
-import static org.sonar.test.i18n.I18nMatchers.isBundleSynchronized;
+import static org.sonar.test.i18n.I18nMatchers.assertAllBundlesUpToDate;
+import static org.sonar.test.i18n.I18nMatchers.isBundleUpToDate;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -30,17 +31,26 @@ public class FrenchPackPluginTest {
   @Test
   @Ignore
   public void testCoreBundleSynchronized() throws Exception {
-    assertThat("core_fr.properties", isBundleSynchronized());
+    assertThat("core_fr.properties", isBundleUpToDate());
   }
 
   @Test
   public void testGwtBundleSynchronized() throws Exception {
-    assertThat("gwt_fr.properties", isBundleSynchronized());
+    assertThat("gwt_fr.properties", isBundleUpToDate());
   }
 
   @Test
   public void testSquidJavaBundleSynchronized() throws Exception {
-    assertThat("squidjava_fr.properties", isBundleSynchronized());
+    assertThat("squidjava_fr.properties", isBundleUpToDate());
+  }
+
+  /*
+   * The 3 previous methods can be replaced by this one.
+   */
+  @Test
+  @Ignore
+  public void testAllBundles() throws Exception {
+    assertAllBundlesUpToDate();
   }
 
 }
