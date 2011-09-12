@@ -28,20 +28,22 @@ import org.junit.Test;
 
 public class FrenchPackPluginTest {
 
+  private static final String SONAR_VERSION = "2.10";
+
   @Test
   @Ignore
   public void testCoreBundleSynchronized() throws Exception {
-    assertThat("core_fr.properties", isBundleUpToDate());
+    assertThat("core_fr.properties", isBundleUpToDate(SONAR_VERSION));
   }
 
   @Test
   public void testGwtBundleSynchronized() throws Exception {
-    assertThat("gwt_fr.properties", isBundleUpToDate());
+    assertThat("gwt_fr.properties", isBundleUpToDate(SONAR_VERSION));
   }
 
   @Test
   public void testSquidJavaBundleSynchronized() throws Exception {
-    assertThat("squidjava_fr.properties", isBundleUpToDate());
+    assertThat("squidjava_fr.properties", isBundleUpToDate(SONAR_VERSION));
   }
 
   /*
@@ -50,7 +52,7 @@ public class FrenchPackPluginTest {
   @Test
   @Ignore
   public void testAllBundles() throws Exception {
-    assertAllBundlesUpToDate();
+    assertAllBundlesUpToDate(SONAR_VERSION);
   }
 
 }
