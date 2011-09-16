@@ -28,31 +28,21 @@ import org.junit.Test;
 
 public class FrenchPackPluginTest {
 
-  private static final String SONAR_VERSION = "2.10";
+  private static final String SONAR_VERSION = "2.11-RC1";
 
   @Test
-  @Ignore
-  public void testCoreBundleSynchronized() throws Exception {
+  public void coreBundleShouldBeUpToDate() {
     assertThat("core_fr.properties", isBundleUpToDate(SONAR_VERSION));
   }
 
   @Test
-  public void testGwtBundleSynchronized() throws Exception {
+  public void gwtBundleShouldBeUpToDate() {
     assertThat("gwt_fr.properties", isBundleUpToDate(SONAR_VERSION));
   }
 
   @Test
-  public void testSquidJavaBundleSynchronized() throws Exception {
+  public void squidJavaBundleShouldBeUpToDate() {
     assertThat("squidjava_fr.properties", isBundleUpToDate(SONAR_VERSION));
-  }
-
-  /*
-   * The 3 previous methods can be replaced by this one.
-   */
-  @Test
-  @Ignore
-  public void testAllBundles() throws Exception {
-    assertAllBundlesUpToDate(SONAR_VERSION);
   }
 
 }
