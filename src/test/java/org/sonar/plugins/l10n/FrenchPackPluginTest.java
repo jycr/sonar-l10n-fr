@@ -28,7 +28,7 @@ import org.junit.Test;
 
 public class FrenchPackPluginTest {
 
-  private static final String SONAR_VERSION = "2.11-RC3";
+  private static final String SONAR_VERSION = "2.11";
 
   @Test
   public void coreBundleShouldBeUpToDate() {
