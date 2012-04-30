@@ -20,15 +20,13 @@
 package org.sonar.plugins.l10n;
 
 import static org.junit.Assert.assertThat;
-import static org.sonar.test.i18n.I18nMatchers.assertAllBundlesUpToDate;
 import static org.sonar.test.i18n.I18nMatchers.isBundleUpToDate;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class FrenchPackPluginTest {
 
-  private static final String SONAR_VERSION = "2.13";
+  private static final String SONAR_VERSION = "3.0";
 
   @Test
   public void coreBundleShouldBeUpToDate() {
