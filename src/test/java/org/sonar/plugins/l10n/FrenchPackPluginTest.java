@@ -19,28 +19,26 @@
  */
 package org.sonar.plugins.l10n;
 
-import static org.junit.Assert.assertThat;
-import static org.sonar.test.i18n.I18nMatchers.isBundleUpToDate;
-
+import com.google.common.collect.Maps;
 import org.junit.Test;
+
+import java.util.Map;
+
+import static org.sonar.test.i18n.I18nMatchers.assertAllBundlesUpToDate;
 
 public class FrenchPackPluginTest {
 
   private static final String SONAR_VERSION = "3.0";
+  private static final Map<String, String> pluginIdsToBundleUrlMap = Maps.newHashMap();
 
-  @Test
-  public void coreBundleShouldBeUpToDate() {
-    assertThat("core_fr.properties", isBundleUpToDate(SONAR_VERSION));
+  static {
+    // TODO charge URL of motion chart to the released 1.4 version and not to trunk
+    pluginIdsToBundleUrlMap.put("motionchart", "http://svn.codehaus.org/sonar-plugins/trunk/motion-chart/src/main/resources/org/sonar/l10n/motionchart.properties");
   }
 
   @Test
-  public void gwtBundleShouldBeUpToDate() {
-    assertThat("gwt_fr.properties", isBundleUpToDate(SONAR_VERSION));
-  }
-
-  @Test
-  public void squidJavaBundleShouldBeUpToDate() {
-    assertThat("squidjava_fr.properties", isBundleUpToDate(SONAR_VERSION));
+  public void test() throws Exception {
+    assertAllBundlesUpToDate(SONAR_VERSION, pluginIdsToBundleUrlMap);
   }
 
 }
