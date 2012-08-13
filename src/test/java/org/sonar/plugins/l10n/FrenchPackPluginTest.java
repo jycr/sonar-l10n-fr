@@ -40,6 +40,7 @@ public class FrenchPackPluginTest {
     {
       put("abacus", "http://svn.codehaus.org/sonar-plugins/tags/sonar-abacus-plugin-0.1/src/main/resources/org/sonar/l10n/abacus.properties");
       put("branding", "http://svn.codehaus.org/sonar-plugins/tags/sonar-branding-plugin-0.3/src/main/resources/org/sonar/l10n/branding.properties");
+      put("jira", "http://svn.codehaus.org/sonar-plugins/tags/sonar-jira-plugin-1.0/src/main/resources/org/sonar/l10n/jira.properties");
       put("motionchart", "http://svn.codehaus.org/sonar-plugins/tags/sonar-motion-chart-plugin-1.4/src/main/resources/org/sonar/l10n/motionchart.properties");
     }
   };
