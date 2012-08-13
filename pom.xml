@@ -17,10 +17,12 @@
   <name>L10n :: French Pack</name>
   <url>http://docs.codehaus.org/display/SONAR/French+Pack</url>
   <inceptionYear>2011</inceptionYear>
+  
   <organization>
     <name>SonarSource</name>
     <url>http://www.sonarsource.com</url>
   </organization>
+  
   <licenses>
     <license>
       <name>GNU LGPL 3</name>
@@ -28,6 +30,30 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+
+  <scm>
+    <connection>scm:svn:http://svn.codehaus.org/sonar-plugins/trunk/l10n/fr</connection>
+    <developerConnection>scm:svn:https://svn.codehaus.org/sonar-plugins/trunk/l10n/fr</developerConnection>
+    <url>http://svn.sonar-plugins.codehaus.org</url>
+  </scm>
+
+  <properties>
+    <sonar.pluginClass>org.sonar.plugins.l10n.FrenchPackPlugin</sonar.pluginClass>
+    <sonar.version>3.2</sonar.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.codehaus.sonar</groupId>
+      <artifactId>sonar-plugin-api</artifactId>
+      <version>${sonar.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.sonar</groupId>
+      <artifactId>sonar-testing-harness</artifactId>
+      <version>${sonar.version}</version>
+    </dependency>
+  </dependencies>
 
   <developers>
     <developer>
@@ -50,38 +76,7 @@
     </contributor>
   </contributors>
 
-  <scm>
-    <connection>scm:svn:http://svn.codehaus.org/sonar-plugins/trunk/l10n/fr</connection>
-    <developerConnection>scm:svn:https://svn.codehaus.org/sonar-plugins/trunk/l10n/fr</developerConnection>
-    <url>http://svn.sonar-plugins.codehaus.org</url>
-  </scm>
-
-  <properties>
-    <sonar.pluginClass>org.sonar.plugins.l10n.FrenchPackPlugin</sonar.pluginClass>
-    <sonar.version>3.2-RC1</sonar.version>
-  </properties>
-
-  <dependencies>
-    <dependency>
-      <groupId>org.codehaus.sonar</groupId>
-      <artifactId>sonar-plugin-api</artifactId>
-      <version>${sonar.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.sonar</groupId>
-      <artifactId>sonar-testing-harness</artifactId>
-      <version>${sonar.version}</version>
-    </dependency>
-  </dependencies>
-
   <build>
-    <testResources>
-      <testResource>
-        <directory>src/test/resources</directory>
-        <filtering>true</filtering>
-      </testResource>
-    </testResources>
-
     <plugins>
       <plugin>
         <groupId>org.codehaus.sonar</groupId>
@@ -96,7 +91,6 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>native2ascii-maven-plugin</artifactId>
-        <version>1.0-beta-1</version>
         <executions>
           <execution>
             <goals>
@@ -107,80 +101,5 @@
       </plugin>
     </plugins>
   </build>
-
-  <profiles>
-    <profile>
-      <id>m2e</id>
-      <activation>
-        <!-- This profile is active only when used from Eclipse m2e and is used
-              only to store settings. -->
-        <property>
-          <name>m2e.version</name>
-        </property>
-      </activation>
-      <build>
-        <pluginManagement>
-          <plugins>
-            <plugin>
-              <groupId>org.eclipse.m2e</groupId>
-              <artifactId>lifecycle-mapping</artifactId>
-              <version>1.0.0</version>
-              <configuration>
-                <lifecycleMappingMetadata>
-                  <pluginExecutions>
-                    <pluginExecution>
-                      <pluginExecutionFilter>
-                        <groupId>
-                          com.mycila.maven-license-plugin
-                        </groupId>
-                        <artifactId>
-                          maven-license-plugin
-                        </artifactId>
-                        <versionRange>
-                          [1.9.0,)
-                        </versionRange>
-                        <goals>
-                          <goal>check</goal>
-                        </goals>
-                      </pluginExecutionFilter>
-                      <action>
-                        <ignore />
-                      </action>
-                    </pluginExecution>
-                    <pluginExecution>
-                      <pluginExecutionFilter>
-                        <groupId>org.codehaus.sonar</groupId>
-                        <artifactId>sonar-packaging-maven-plugin</artifactId>
-                        <versionRange>[1.0,)</versionRange>
-                        <goals>
-                          <goal>check-dependencies</goal>
-                        </goals>
-                      </pluginExecutionFilter>
-                      <action>
-                        <ignore />
-                      </action>
-                    </pluginExecution>
-                    <pluginExecution>
-                      <pluginExecutionFilter>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>native2ascii-maven-plugin</artifactId>
-                        <versionRange>[1.0-alpha-1,)</versionRange>
-                        <goals>
-                          <goal>native2ascii</goal>
-                        </goals>
-                      </pluginExecutionFilter>
-                      <action>
-                        <ignore />
-                      </action>
-                    </pluginExecution>
-                  </pluginExecutions>
-                </lifecycleMappingMetadata>
-              </configuration>
-            </plugin>
-          </plugins>
-        </pluginManagement>
-      </build>
-    </profile>
-  </profiles>
 
 </project>
