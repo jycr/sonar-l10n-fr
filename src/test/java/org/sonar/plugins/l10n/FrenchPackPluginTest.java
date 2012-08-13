@@ -19,22 +19,29 @@
  */
 package org.sonar.plugins.l10n;
 
-import com.google.common.collect.Maps;
 import org.junit.Test;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import static org.sonar.test.i18n.I18nMatchers.assertAllBundlesUpToDate;
 
 public class FrenchPackPluginTest {
 
+  /**
+   * Version of Sonar which is covered by the language pack
+   */
   private static final String SONAR_VERSION = "3.0";
-  private static final Map<String, String> pluginIdsToBundleUrlMap = Maps.newHashMap();
 
-  static {
-    // TODO charge URL of motion chart to the released 1.4 version and not to trunk
-    pluginIdsToBundleUrlMap.put("motionchart", "http://svn.codehaus.org/sonar-plugins/trunk/motion-chart/src/main/resources/org/sonar/l10n/motionchart.properties");
-  }
+  /**
+   * Bundles of the forge plugins covered by the language pack
+   */
+  private static final Map<String, String> pluginIdsToBundleUrlMap = new HashMap<String, String>() {
+    {
+      put("abacus", "http://svn.codehaus.org/sonar-plugins/tags/sonar-abacus-plugin-0.1/src/main/resources/org/sonar/l10n/abacus.properties");
+      put("motionchart", "http://svn.codehaus.org/sonar-plugins/tags/sonar-motion-chart-plugin-1.4/src/main/resources/org/sonar/l10n/motionchart.properties");
+    }
+  };
 
   @Test
   public void test() throws Exception {
