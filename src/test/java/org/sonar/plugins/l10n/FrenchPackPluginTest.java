@@ -21,34 +21,12 @@ package org.sonar.plugins.l10n;
 
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static org.sonar.test.i18n.I18nMatchers.assertAllBundlesUpToDate;
 
 public class FrenchPackPluginTest {
 
-  /**
-   * Version of Sonar which is covered by the language pack
-   */
-  private static final String SONAR_VERSION = "3.0";
-
-  /**
-   * Bundles of the forge plugins covered by the language pack
-   */
-  private static final Map<String, String> pluginIdsToBundleUrlMap = new HashMap<String, String>() {
-    {
-      put("abacus", "http://svn.codehaus.org/sonar-plugins/tags/sonar-abacus-plugin-0.1/src/main/resources/org/sonar/l10n/abacus.properties");
-      put("branding", "http://svn.codehaus.org/sonar-plugins/tags/sonar-branding-plugin-0.3/src/main/resources/org/sonar/l10n/branding.properties");
-      put("jira", "http://svn.codehaus.org/sonar-plugins/tags/sonar-jira-plugin-1.0/src/main/resources/org/sonar/l10n/jira.properties");
-      put("motionchart", "http://svn.codehaus.org/sonar-plugins/tags/sonar-motion-chart-plugin-1.4/src/main/resources/org/sonar/l10n/motionchart.properties");
-      put("violationdensity", "http://svn.codehaus.org/sonar-plugins/tags/sonar-violationdensity-plugin-1.2/src/main/resources/org/sonar/l10n/violationdensity.properties");
-    }
-  };
-
   @Test
   public void test() throws Exception {
-    assertAllBundlesUpToDate(SONAR_VERSION, pluginIdsToBundleUrlMap);
+    assertAllBundlesUpToDate();
   }
-
 }
