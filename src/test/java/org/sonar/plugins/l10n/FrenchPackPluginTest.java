@@ -20,13 +20,12 @@
 package org.sonar.plugins.l10n;
 
 import org.junit.Test;
-
-import static org.sonar.test.i18n.I18nMatchers.assertAllBundlesUpToDate;
+import org.sonar.test.i18n.I18nMatchers;
 
 public class FrenchPackPluginTest {
 
   @Test
-  public void test() throws Exception {
-    assertAllBundlesUpToDate();
+  public void bundles_should_be_up_to_date() {
+    I18nMatchers.assertBundlesUpToDate();
   }
 }

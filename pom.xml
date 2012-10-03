@@ -6,7 +6,6 @@
     <groupId>org.codehaus.sonar-plugins</groupId>
     <artifactId>parent</artifactId>
     <version>13</version>
-    <relativePath>../../parent</relativePath>
   </parent>
 
   <groupId>org.codehaus.sonar-plugins.l10n</groupId>
@@ -44,7 +43,6 @@
     <bundle.abacus>0.1</bundle.abacus>
     <bundle.branding>0.3</bundle.branding>
     <bundle.core>3.0</bundle.core>
-    <bundle.gwt>3.0</bundle.gwt>
     <bundle.jira>1.0</bundle.jira>
     <bundle.motionchart>1.4</bundle.motionchart>
     <bundle.squidjava>1.0-SNAPSHOT</bundle.squidjava>
@@ -84,7 +82,7 @@
     <dependency>
       <groupId>org.codehaus.sonar.plugins</groupId>
       <artifactId>sonar-l10n-en-plugin</artifactId>
-      <version>${bundle.gwt}</version>
+      <version>${bundle.core}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
