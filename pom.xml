@@ -59,6 +59,7 @@
       <groupId>org.codehaus.sonar</groupId>
       <artifactId>sonar-testing-harness</artifactId>
       <version>${sonar.version}</version>
+      <scope>test</scope>
     </dependency>
     <!-- Dependencies to plugins which are translated by this language pack -->
     <dependency>
