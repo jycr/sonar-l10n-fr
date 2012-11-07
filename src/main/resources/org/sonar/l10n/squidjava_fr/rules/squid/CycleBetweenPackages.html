@@ -1,0 +1,7 @@
+<p>
+Lorsque des packages sont impliqués dans un cycle (package A > package B > package C > package A, où ">" signifie "dépend de"),
+cela indique que le couplage fort qui existe entre ces packages empêche toute extraction ou réutilisation isolée d'un de ces packages.
+Les cycles peuvent rapidement augmenter l'effort requis pour maintenir une application et pour l'adapter rapidement aux besoins métier.
+En plus de détecter les cycles entre packages, Sonar détermine quel est l'effort minimum pour casser ces cycles.
+Cette règle crée une violation sur tout fichier source possédant une dépendance sortante devant être supprimée pour casser un cycle.  
+</p>
