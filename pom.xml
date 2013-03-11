@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.codehaus.sonar-plugins</groupId>
     <artifactId>parent</artifactId>
-    <version>15</version>
+    <version>16</version>
   </parent>
 
   <groupId>org.codehaus.sonar-plugins.l10n</groupId>
@@ -14,6 +14,7 @@
   <packaging>sonar-plugin</packaging>
 
   <name>L10n :: French Pack</name>
+  <description>Language pack for French</description>
   <url>http://docs.codehaus.org/display/SONAR/French+Pack</url>
   <inceptionYear>2011</inceptionYear>
   
@@ -30,6 +31,11 @@
     </license>
   </licenses>
 
+  <issueManagement>
+    <system>JIRA</system>
+    <url>http://jira.codehaus.org/browse/SONARPLUGINS/component/14774</url>
+  </issueManagement>
+
   <scm>
     <connection>scm:git:git://github.com/SonarCommunity/sonar-l10n-fr.git</connection>
     <developerConnection>scm:git:git@github.com:SonarCommunity/sonar-l10n-fr.git</developerConnection>
@@ -43,11 +49,10 @@
     <!-- Versions of the plugin translated by this language pack -->
     <bundle.abacus>0.1</bundle.abacus>
     <bundle.branding>0.3</bundle.branding>
-    <bundle.core>3.4-RC3</bundle.core>
-    <bundle.javasquid>1.1</bundle.javasquid>
+    <bundle.core>3.5-RC4</bundle.core>
     <bundle.jira>1.0</bundle.jira>
     <bundle.motionchart>1.4</bundle.motionchart>
-    <bundle.squidjava>1.0</bundle.squidjava>
+    <bundle.squidjava>1.2-SNAPSHOT</bundle.squidjava>
     <bundle.violationdensity>1.2</bundle.violationdensity>
   </properties>
 
