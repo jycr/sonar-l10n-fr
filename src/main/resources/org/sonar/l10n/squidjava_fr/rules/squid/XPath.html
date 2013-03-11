@@ -1,0 +1,16 @@
+<p>
+Cette règle permet de définir des règles Java supplémentaires grâce à l'utilisation d'expressions XPath.
+</p>
+
+<p>
+Les violations sont créées en fonction de la valeur de retour de l'expression XPath. Si l'expression XPath retourne:
+</p>
+<ul>
+  <li>un noeud AST ou une liste de noeuds AST, alors une violation est créée au niveau de la ligne de chaque noeud</li>
+  <li>un booléen, alors une violation est créée au niveau du fichier si le booléan a la valeur "vrai"</li>
+  <li>toute autre valeur, alors aucune violation n'est créée</li>
+</ul>
+
+<p>
+Voici un exemple d'expression XPath qui crée une violation pour chaque instruction "if" : //ifStatement
+</p>
