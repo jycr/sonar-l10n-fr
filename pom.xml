@@ -49,10 +49,10 @@
     <!-- Versions of the plugin translated by this language pack -->
     <bundle.abacus>0.1</bundle.abacus>
     <bundle.branding>0.3</bundle.branding>
-    <bundle.core>3.5-RC4</bundle.core>
+    <bundle.core>3.5</bundle.core>
     <bundle.jira>1.0</bundle.jira>
     <bundle.motionchart>1.4</bundle.motionchart>
-    <bundle.squidjava>1.2-SNAPSHOT</bundle.squidjava>
+    <bundle.squidjava>1.2</bundle.squidjava>
     <bundle.violationdensity>1.2</bundle.violationdensity>
   </properties>
 
@@ -109,12 +109,6 @@
       <groupId>org.codehaus.sonar-plugins</groupId>
       <artifactId>sonar-motion-chart-plugin</artifactId>
       <version>${bundle.motionchart}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.sonar-plugins.java</groupId>
-      <artifactId>sonar-squid-java-plugin</artifactId>
-      <version>${bundle.squidjava}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
