@@ -61,6 +61,7 @@
       <groupId>org.codehaus.sonar</groupId>
       <artifactId>sonar-plugin-api</artifactId>
       <version>${sonar.version}</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.codehaus.sonar</groupId>
@@ -160,6 +161,31 @@
             <goals>
               <goal>native2ascii</goal>
             </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>enforce-distribution-size</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <phase>verify</phase>
+            <configuration>
+              <rules>
+                <requireFilesSize>
+                  <maxsize>45000</maxsize>
+                  <minsize>40000</minsize>
+                  <files>
+                    <file>${pom.build.directory}/${pom.artifactId}-${pom.version}.jar</file>
+                  </files>
+                </requireFilesSize>
+              </rules>
+            </configuration>
           </execution>
         </executions>
       </plugin>
