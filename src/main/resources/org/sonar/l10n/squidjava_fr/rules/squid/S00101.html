@@ -1,0 +1,13 @@
+<p>
+L'utilisation de convention de nommage est l'un des points clé permettant à une équipe de collaborer efficacement. 
+Cette règle permet de vérifier que les classes respectent l'expression régulière définie sur cette règle.
+</p>
+
+<p>
+Le code suivant illustre cette règle lorsque l'expression régulière est "^[A-Z][a-zA-Z0-9]*$":
+</p>
+<pre>
+public class MyFirstClass { ... } // Compliant
+
+public class mySecondClass { ... }    // Non-Compliant
+</pre>

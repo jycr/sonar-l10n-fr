@@ -1,0 +1,17 @@
+<p>
+Ne pas utiliser d'accolade pour délimiter un bloc de code peut être source d'erreur.
+</p>
+<p>
+Par exemple, dans l'exemple suivant, les deux instructions semblent être attachées au bloc "if" alors que cela n'est le cas que pour la 
+première :
+</p>
+<pre>
+if (condition) // Non-Compliant
+  executeSomething();
+  checkSomething();
+
+if (condition) { // Compliant
+  executeSomething();
+}
+checkSomething();
+</pre>

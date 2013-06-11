@@ -1,0 +1,19 @@
+<p>
+L'utilisation de convention de nommage est l'un des points clé permettant à une équipe de collaborer efficacement. 
+Cette règle permet de vérifier que les noms de classe abstraite respectent l'expression régulière définie sur cette règle. 
+Cette règle vérifie aussi que les noms de classe non-abstraite ne suivent pas cette convention de nommage.
+</p>
+
+<p>
+Le code suivant illustre cette règle lorsque l'expression régulière est "^Abstract[A-Z][a-zA-Z0-9]*$":
+</p>
+<pre>
+abstract class MyClass { // Non-Compliant
+}
+
+class AbstractLikeClass { // Non-Compliant
+}
+
+abstract class AbstractClass { // Compliant
+}
+</pre>
