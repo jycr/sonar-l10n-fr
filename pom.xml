@@ -49,10 +49,10 @@
     <!-- Versions of the plugin translated by this language pack -->
     <bundle.abacus>0.1</bundle.abacus>
     <bundle.branding>0.3</bundle.branding>
-    <bundle.core>3.5</bundle.core>
+    <bundle.core>3.6-SNAPSHOT</bundle.core>
     <bundle.jira>1.0</bundle.jira>
     <bundle.motionchart>1.4</bundle.motionchart>
-    <bundle.squidjava>1.2</bundle.squidjava>
+    <bundle.squidjava>1.3-SNAPSHOT</bundle.squidjava>
     <bundle.violationdensity>1.2</bundle.violationdensity>
   </properties>
 
@@ -178,8 +178,8 @@
             <configuration>
               <rules>
                 <requireFilesSize>
-                  <maxsize>45000</maxsize>
-                  <minsize>40000</minsize>
+                  <maxsize>55000</maxsize>
+                  <minsize>50000</minsize>
                   <files>
                     <file>${pom.build.directory}/${pom.artifactId}-${pom.version}.jar</file>
                   </files>
