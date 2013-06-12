@@ -14,7 +14,7 @@
   <packaging>sonar-plugin</packaging>
 
   <name>L10n :: French Pack</name>
-  <description>Language pack for French</description>
+  <description>Language Pack for French</description>
   <url>http://docs.codehaus.org/display/SONAR/French+Pack</url>
   <inceptionYear>2011</inceptionYear>
   
