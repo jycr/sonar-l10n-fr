@@ -174,7 +174,7 @@
                   <maxsize>35000</maxsize>
                   <minsize>30000</minsize>
                   <files>
-                    <file>${pom.build.directory}/${pom.artifactId}-${pom.version}.jar</file>
+                    <file>${project.build.directory}/${project.artifactId}-${project.version}.jar</file>
                   </files>
                 </requireFilesSize>
               </rules>
