@@ -53,6 +53,7 @@
     <bundle.jira>1.0</bundle.jira>
     <bundle.motionchart>1.4</bundle.motionchart>
     <bundle.violationdensity>1.2</bundle.violationdensity>
+    <bundle.java>2.4</bundle.java>
   </properties>
 
   <dependencies>
@@ -97,6 +98,12 @@
       <groupId>org.codehaus.sonar-plugins</groupId>
       <artifactId>sonar-jira-plugin</artifactId>
       <version>${bundle.jira}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.sonar-plugins.java</groupId>
+      <artifactId>java-checks</artifactId>
+      <version>${bundle.java}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
