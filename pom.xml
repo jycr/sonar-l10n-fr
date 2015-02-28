@@ -116,19 +116,22 @@
 
   <developers>
     <developer>
-      <id>fabrice.bellingard</id>
+      <id>batmat</id>
+      <name>Baptiste Mathus</name>
+      <organizationUrl>http://batmat.net</organizationUrl>
+    </developer>  
+  </developers>
+  <contributors>
+    <contributor>
       <name>Fabrice Bellingard</name>
       <organization>SonarSource</organization>
       <organizationUrl>http://sonarsource.com</organizationUrl>
-    </developer>
-    <developer>
-      <id>simon.brandhof</id>
+    </contributor>
+    <contributor>
       <name>Simon Brandhof</name>
       <organization>SonarSource</organization>
       <organizationUrl>http://sonarsource.com</organizationUrl>
-    </developer>
-  </developers>
-  <contributors>
+    </contributor>
     <contributor>
       <name>David Festal</name>
       <organizationUrl>http://serli.com</organizationUrl>
