@@ -1,0 +1,3 @@
+from batmat/sonarqube-mysql:sonarqube-4.5.x
+
+COPY target/sonar-l10n-fr-plugin-*-SNAPSHOT.jar /sonarqube/extensions/downloads/
