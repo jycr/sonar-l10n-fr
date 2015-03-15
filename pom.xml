@@ -10,7 +10,7 @@
 
   <groupId>org.codehaus.sonar-plugins.l10n</groupId>
   <artifactId>sonar-l10n-fr-plugin</artifactId>
-  <version>1.12</version>
+  <version>1.13-SNAPSHOT</version>
   <packaging>sonar-plugin</packaging>
 
   <name>L10n :: French Pack</name>
@@ -40,7 +40,7 @@
     <connection>scm:git:git://github.com/SonarCommunity/sonar-l10n-fr.git</connection>
     <developerConnection>scm:git:git@github.com:SonarCommunity/sonar-l10n-fr.git</developerConnection>
     <url>https://github.com/SonarCommunity/sonar-l10n-fr</url>
-    <tag>sonar-l10n-fr-plugin-1.12</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <properties>
