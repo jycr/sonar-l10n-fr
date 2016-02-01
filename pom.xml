@@ -47,7 +47,6 @@
     <sonar.pluginClass>org.sonar.plugins.l10n.FrenchPackPlugin</sonar.pluginClass>
     <sonar.version>5.3</sonar.version>
     <!-- Versions of the plugin translated by this language pack -->
-    <bundle.abacus>0.1</bundle.abacus>
     <bundle.branding>0.3</bundle.branding>
     <bundle.core>5.3</bundle.core>
     <bundle.jira>1.0</bundle.jira>
@@ -70,12 +69,6 @@
       <scope>test</scope>
     </dependency>
     <!-- Dependencies to plugins which are translated by this language pack -->
-    <dependency>
-      <groupId>org.codehaus.sonar-plugins</groupId>
-      <artifactId>sonar-abacus-plugin</artifactId>
-      <version>${bundle.abacus}</version>
-      <scope>test</scope>
-    </dependency>
     <dependency>
       <groupId>org.codehaus.sonar-plugins</groupId>
       <artifactId>sonar-branding-plugin</artifactId>
