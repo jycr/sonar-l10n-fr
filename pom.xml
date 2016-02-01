@@ -3,9 +3,9 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.codehaus.sonar-plugins</groupId>
+    <groupId>org.sonarsource.parent</groupId>
     <artifactId>parent</artifactId>
-    <version>19</version>
+    <version>28</version>
   </parent>
 
   <groupId>org.codehaus.sonar-plugins.l10n</groupId>
@@ -45,11 +45,11 @@
 
   <properties>
     <sonar.pluginClass>org.sonar.plugins.l10n.FrenchPackPlugin</sonar.pluginClass>
-    <sonar.version>4.5.4</sonar.version>
+    <sonar.version>5.3</sonar.version>
     <!-- Versions of the plugin translated by this language pack -->
     <bundle.abacus>0.1</bundle.abacus>
     <bundle.branding>0.3</bundle.branding>
-    <bundle.core>4.5.4</bundle.core>
+    <bundle.core>5.3</bundle.core>
     <bundle.jira>1.0</bundle.jira>
     <bundle.motionchart>1.4</bundle.motionchart>
     <bundle.violationdensity>1.2</bundle.violationdensity>
@@ -58,13 +58,13 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.codehaus.sonar</groupId>
+      <groupId>org.sonarsource.sonarqube</groupId>
       <artifactId>sonar-plugin-api</artifactId>
       <version>${sonar.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>org.codehaus.sonar</groupId>
+      <groupId>org.sonarsource.sonarqube</groupId>
       <artifactId>sonar-testing-harness</artifactId>
       <version>${sonar.version}</version>
       <scope>test</scope>
@@ -83,7 +83,7 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.codehaus.sonar</groupId>
+      <groupId>org.sonarsource.sonarqube</groupId>
       <artifactId>sonar-core</artifactId>
       <version>${bundle.core}</version>
       <scope>test</scope>
@@ -110,6 +110,12 @@
       <groupId>org.codehaus.sonar-plugins</groupId>
       <artifactId>sonar-violationdensity-plugin</artifactId>
       <version>${bundle.violationdensity}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.easytesting</groupId>
+      <artifactId>fest-assert</artifactId>
+      <version>1.4</version>
       <scope>test</scope>
     </dependency>
   </dependencies> 
@@ -141,8 +147,9 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>org.codehaus.sonar</groupId>
+        <groupId>org.sonarsource.sonar-packaging-maven-plugin</groupId>
         <artifactId>sonar-packaging-maven-plugin</artifactId>
+        <version>1.15</version>
         <extensions>true</extensions>
         <configuration>
           <basePlugin>l10nen</basePlugin>
