@@ -6,7 +6,7 @@ This is the plugin to translate [SonarQube](http://www.sonarqube.org/) web appli
 Releases can be installed directly via the Update Center page (browse Administration > System > Update Center). They can also be downloaded here.
 
 * Version 1.14. Not released yet. Adds support of SonarQube 5.6. Requires Java 8.
-* Version 1.13 (2015 March 19th). [Download](http://search.maven.org/remotecontent?filepath=org/codehaus/sonar-plugins/l10n/sonar-l10n-fr-plugin/1.13/sonar-l10n-fr-plugin-1.13.jar).
+* Version 1.13 (2015 March 19th). [Download](http://search.maven.org/remotecontent?filepath=org/codehaus/sonar-plugins/l10n/sonar-l10n-fr-plugin/1.13/sonar-l10n-fr-plugin-1.13.jar). Supports SonarQube 4.5.4.
 
 # Have questions or feedback?
 Have question or feedback?
