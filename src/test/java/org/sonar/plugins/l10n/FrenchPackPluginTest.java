@@ -1,5 +1,5 @@
 /*
- * L10n :: French Pack
+ * French Pack for SonarQube
  * Copyright (C) 2011-2016 SonarSource SA
  * mailto:contact AT sonarsource DOT com
  *
