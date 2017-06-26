@@ -19,16 +19,10 @@
  */
 package org.sonar.plugins.l10n;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Properties;
+import java.util.*;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -39,12 +33,12 @@ import org.sonar.test.i18n.BundleSynchronizedMatcher;
 
 import com.google.common.io.Files;
 
-// Ironic to have such a file in a package for a tool dedicated to code quality, I know.
 class L10nHackyPropertiesUpdater
 {
 	// TODO : mojo'ify and/or externalize some part of BundleSynchronizedMatcher if that proves useful
 	public static void main(String[] args) throws ConfigurationException, IOException
 	{
+		System.setProperty("file.encoding", "UTF-8");
 		URL l10nRoot = FrenchPackPlugin.class.getResource(BundleSynchronizedMatcher.L10N_PATH);
 
 		Collection<File> bundles = FileUtils.listFiles(FileUtils.toFile(l10nRoot), new String[] { "properties" },
@@ -63,12 +57,14 @@ class L10nHackyPropertiesUpdater
 			{
 				System.out.println("\tOriginal bundle found, let's try to update the localized version");
 				Properties localizedProps = new Properties();
-				localizedProps.load(new FileInputStream(localizedBundle));
+				FileInputStream localizedBundleFile = new FileInputStream(localizedBundle);
+				localizedProps.load(localizedBundleFile);
 				
 				PropertiesConfiguration config = new PropertiesConfiguration();
+				config.setEncoding("UTF-8");
 				PropertiesConfigurationLayout layout = new PropertiesConfigurationLayout(config);
-				layout.load(new InputStreamReader(FrenchPackPlugin.class
-						.getResourceAsStream(BundleSynchronizedMatcher.L10N_PATH + originalVersion)));
+				layout.load(new InputStreamReader(FrenchPackPlugin.class.
+						getResourceAsStream(BundleSynchronizedMatcher.L10N_PATH + originalVersion)));
 
 				for (@SuppressWarnings("unchecked")
 				Iterator<String> it = config.getKeys(); it.hasNext();)
@@ -99,14 +95,11 @@ class L10nHackyPropertiesUpdater
 
 	// Ugly hack because Commons-config isn't configurable about spaces around the "key = value" and the
 	// SQ bundles are all written "key=value"... So basically replacing " = " by "="
-	// + UTF8/ISO-8859-1 tinkering
 	private static void fixSpacesAroundEqualsAndScrewUpEncoding(File localizedBundle) throws IOException
 	{
 		String lines = Files.toString(localizedBundle, Charset.forName("ISO-8859-1"));
 		lines = lines.replaceAll(" = ", "=");
 		lines = StringEscapeUtils.unescapeJava(lines);
-		// Yeah, this is *really* weird, as properties files are by definition encoded in ISO-8859-1
-		// but seems like SQ l10n plugins are done this way :-/
-		Files.write(lines, localizedBundle, Charset.forName("UTF-8"));
+		Files.write(lines, localizedBundle, Charset.forName("ISO-8859-1"));
 	}
 }
