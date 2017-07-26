@@ -9,13 +9,13 @@
   </parent>
 
   <groupId>org.sonarqube.l10n.fr</groupId>
-  <artifactId>sonar-l10n-fr-plugin</artifactId>
-  <version>1.14-SNAPSHOT</version>
+  <artifactId>sonar-l10n-fr</artifactId>
+  <version>1.14.1</version>
   <packaging>sonar-plugin</packaging>
 
   <name>French Pack for SonarQube</name>
   <description>Translate SonarQube web application in French</description>
-  <url>https://github.com/SonarQubeCommunity/sonar-l10n-fr</url>
+  <url>https://github.com/ZoeThivet/sonar-l10n-fr.git</url>
   <inceptionYear>2011</inceptionYear>
 
   <organization>
@@ -33,13 +33,13 @@
 
   <issueManagement>
     <system>GitHub</system>
-    <url>https://github.com/SonarQubeCommunity/sonar-l10n-fr/issues</url>
+    <url>https://github.com/ZoeThivet/sonar-l10n-fr/issues</url>
   </issueManagement>
 
   <scm>
-    <connection>scm:git:git://github.com/SonarQubeCommunity/sonar-l10n-fr.git</connection>
-    <developerConnection>scm:git:git@github.com:SonarQubeCommunity/sonar-l10n-fr.git</developerConnection>
-    <url>https://github.com/SonarQubeCommunity/sonar-l10n-fr</url>
+    <connection>scm:git:git://github.com/ZoeThivet/sonar-l10n-fr.git</connection>
+    <developerConnection>scm:git:git@github.com:ZoeThivet/sonar-l10n-fr.git</developerConnection>
+    <url>https://github.com/ZoeThivet/sonar-l10n-fr</url>
     <tag>HEAD</tag>
   </scm>
 
