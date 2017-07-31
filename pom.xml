@@ -9,8 +9,8 @@
   </parent>
 
   <groupId>org.sonarqube.l10n.fr</groupId>
-  <artifactId>sonar-l10n-fr</artifactId>
-  <version>1.14.1</version>
+  <artifactId>sonar-l10n-fr-plugin</artifactId>
+  <version>1.14.2</version>
   <packaging>sonar-plugin</packaging>
 
   <name>French Pack for SonarQube</name>
