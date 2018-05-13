@@ -18,11 +18,6 @@
   <url>https://github.com/ZoeThivet/sonar-l10n-fr.git</url>
   <inceptionYear>2011</inceptionYear>
 
-  <organization>
-    <name>SonarSource</name>
-    <url>http://www.sonarsource.com</url>
-  </organization>
-
   <licenses>
     <license>
       <name>GNU LGPL 3</name>
