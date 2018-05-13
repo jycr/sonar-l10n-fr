@@ -10,7 +10,7 @@
 
   <groupId>org.sonarqube.l10n.fr</groupId>
   <artifactId>sonar-l10n-fr-plugin</artifactId>
-  <version>1.14.2</version>
+  <version>1.5</version>
   <packaging>sonar-plugin</packaging>
 
   <name>French Pack for SonarQube</name>
@@ -45,7 +45,7 @@
 
   <properties>
     <sonar.pluginClass>org.sonar.plugins.l10n.FrenchPackPlugin</sonar.pluginClass>
-    <sonarqube.version>5.6</sonarqube.version>
+    <sonarqube.version>6.7.3</sonarqube.version>
     <!-- Versions of the plugin translated by this language pack -->
     <bundle.motionchart>1.7</bundle.motionchart>
   </properties>
