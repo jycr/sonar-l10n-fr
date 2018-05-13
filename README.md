@@ -1,4 +1,4 @@
-# French Pack for SonarQube [![Build Status](https://travis-ci.org/SonarQubeCommunity/sonar-l10n-fr.svg?branch=master)](https://travis-ci.org/SonarQubeCommunity/sonar-l10n-fr) 
+# French Pack for SonarQube [![Build Status](https://api.travis-ci.org/ZoeThivet/sonar-l10n-fr.svg?branch=master)](https://api.travis-ci.org/ZoeThivet/sonar-l10n-fr)
 
 This is the plugin to translate [SonarQube](http://www.sonarqube.org/) web application in French.
 
