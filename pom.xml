@@ -1,75 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
-  <parent>
-    <groupId>org.sonarsource.parent</groupId>
-    <artifactId>parent</artifactId>
-    <version>34</version>
-  </parent>
 
   <groupId>org.sonarqube.l10n.fr</groupId>
   <artifactId>sonar-l10n-fr-plugin</artifactId>
-  <version>1.15.1</version>
+  <version>9.9-SNAPSHOT</version>
   <packaging>sonar-plugin</packaging>
 
   <name>French Pack for SonarQube</name>
-  <description>Translate SonarQube web application in French</description>
+  <description>Language Pack for French</description>
   <url>https://github.com/jycr/sonar-l10n-fr.git</url>
   <inceptionYear>2011</inceptionYear>
-
   <licenses>
     <license>
       <name>GNU LGPL 3</name>
-      <url>http://www.gnu.org/licenses/lgpl.txt</url>
+      <url>https://www.gnu.org/licenses/lgpl-3.0.txt</url>
       <distribution>repo</distribution>
     </license>
   </licenses>
-
-  <issueManagement>
-    <system>GitHub</system>
-    <url>https://github.com/jycr/sonar-l10n-fr/issues</url>
-  </issueManagement>
-
-  <scm>
-    <connection>scm:git:git://github.com/jycr/sonar-l10n-fr.git</connection>
-    <developerConnection>scm:git:git@github.com:jycr/sonar-l10n-fr.git</developerConnection>
-    <url>https://github.com/jycr/sonar-l10n-fr</url>
-    <tag>HEAD</tag>
-  </scm>
-
-  <properties>
-    <sonar.pluginClass>org.sonar.plugins.l10n.FrenchPackPlugin</sonar.pluginClass>
-    <sonarqube.version>6.7.3</sonarqube.version>
-  </properties>
-
-  <dependencies>
-    <dependency>
-      <groupId>org.sonarsource.sonarqube</groupId>
-      <artifactId>sonar-plugin-api</artifactId>
-      <version>${sonarqube.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.sonarsource.sonarqube</groupId>
-      <artifactId>sonar-testing-harness</artifactId>
-      <version>${sonarqube.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.assertj</groupId>
-      <artifactId>assertj-core</artifactId>
-      <version>2.2.0</version>
-      <scope>test</scope>
-    </dependency>
-    <!-- Dependencies which are translated by this language pack -->
-    <dependency>
-      <groupId>org.sonarsource.sonarqube</groupId>
-      <artifactId>sonar-core</artifactId>
-      <version>${sonarqube.version}</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
 
   <contributors>
     <contributor>
@@ -100,27 +48,86 @@
     </contributor>
   </contributors>
 
+  <scm>
+    <connection>scm:git:https://github.com/jycr/sonar-l10n-fr.git</connection>
+    <developerConnection>scm:git:https@github.com:jycr/sonar-l10n-fr.git</developerConnection>
+    <url>https://github.com/jycr/sonar-l10n-fr</url>
+    <tag>HEAD</tag>
+  </scm>
+  <issueManagement>
+    <system>GitHub</system>
+    <url>https://github.com/jycr/sonar-l10n-fr/issues</url>
+  </issueManagement>
+
+  <properties>
+    <sonar.pluginClass>org.sonar.plugins.l10n.FrenchPackPlugin</sonar.pluginClass>
+    <sonar.version>9.8.0.63668</sonar.version>
+    <sonar-plugin-api.version>9.8.0.203</sonar-plugin-api.version>
+
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+    <maven.compiler.release>11</maven.compiler.release>
+
+    <sonar.organization>jycr</sonar.organization>
+    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.sonarsource.api.plugin</groupId>
+      <artifactId>sonar-plugin-api</artifactId>
+      <version>${sonar-plugin-api.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.sonarsource.sonarqube</groupId>
+      <artifactId>sonar-testing-harness</artifactId>
+      <version>${sonar.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>3.23.1</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- Dependencies which are translated by this language pack -->
+    <dependency>
+      <groupId>org.sonarsource.sonarqube</groupId>
+      <artifactId>sonar-core</artifactId>
+      <version>${sonar.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
   <build>
     <plugins>
       <plugin>
         <groupId>org.sonarsource.sonar-packaging-maven-plugin</groupId>
         <artifactId>sonar-packaging-maven-plugin</artifactId>
-        <version>1.15</version>
+        <version>1.21.0.505</version>
         <extensions>true</extensions>
         <configuration>
           <basePlugin>l10nen</basePlugin>
           <pluginName>French Pack</pluginName>
+          <pluginDescription>Language pack for French</pluginDescription>
         </configuration>
       </plugin>
 
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>native2ascii-maven-plugin</artifactId>
+        <version>2.0.1</version>
         <executions>
           <execution>
             <goals>
-              <goal>native2ascii</goal>
+              <goal>inplace</goal>
             </goals>
+            <configuration>
+              <dir>${project.build.outputDirectory}</dir>
+              <encoding>ISO-8859-1</encoding>
+            </configuration>
           </execution>
         </executions>
       </plugin>
@@ -128,6 +135,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
+        <version>3.1.0</version>
         <executions>
           <execution>
             <id>enforce-distribution-size</id>
@@ -139,7 +147,7 @@
               <rules>
                 <requireFilesSize>
                   <minsize>36000</minsize>
-                  <maxsize>40000</maxsize>
+                  <maxsize>100000</maxsize>
                   <files>
                     <file>${project.build.directory}/${project.artifactId}-${project.version}.jar</file>
                   </files>
@@ -149,7 +157,26 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.8</version>
+        <executions>
+          <execution>
+            <id>prepare-agent</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
-
 </project>
