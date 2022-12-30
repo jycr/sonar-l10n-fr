@@ -41,8 +41,6 @@
   <properties>
     <sonar.pluginClass>org.sonar.plugins.l10n.FrenchPackPlugin</sonar.pluginClass>
     <sonarqube.version>6.7.3</sonarqube.version>
-    <!-- Versions of the plugin translated by this language pack -->
-    <bundle.motionchart>1.7</bundle.motionchart>
   </properties>
 
   <dependencies>
@@ -71,19 +69,13 @@
       <version>${sonarqube.version}</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>org.codehaus.sonar-plugins</groupId>
-      <artifactId>sonar-motion-chart-plugin</artifactId>
-      <version>${bundle.motionchart}</version>
-      <scope>test</scope>
-    </dependency>
   </dependencies>
   <developers>
     <developer>
       <id>batmat</id>
       <name>Baptiste Mathus</name>
       <organizationUrl>http://batmat.net</organizationUrl>
-    </developer>  
+    </developer>
   </developers>
   <contributors>
     <contributor>
