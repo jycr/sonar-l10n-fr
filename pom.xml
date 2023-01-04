@@ -50,9 +50,8 @@
 
 	<scm>
 		<connection>scm:git:https://github.com/jycr/sonar-l10n-fr.git</connection>
-		<developerConnection>scm:git:https@github.com:jycr/sonar-l10n-fr.git</developerConnection>
+    <developerConnection>scm:git:https://github.com/jycr/sonar-l10n-fr.git</developerConnection>
 		<url>https://github.com/jycr/sonar-l10n-fr</url>
-		<tag>HEAD</tag>
 	</scm>
 	<issueManagement>
 		<system>GitHub</system>
@@ -60,8 +59,15 @@
 	</issueManagement>
 
 	<properties>
-		<!-- This is only the default for local development, CI will override it! -->
-		<revision>develop-SNAPSHOT</revision>
+    <!--
+        Default version when disabling the Maven extension: maven-git-versioning-extension
+        see: https://github.com/qoomon/maven-git-versioning-extension#intellij&#45;&#45;-multi-modules-projects
+    -->
+    <revision>develop-SNAPSHOT</revision>
+
+    <!-- Ensures reproducible builds (see https://maven.apache.org/guides/mini/guide-reproducible-builds.html) -->
+    <!--suppress UnresolvedMavenProperty -->
+    <project.build.outputTimestamp>${git.commit.timestamp.datetime}</project.build.outputTimestamp>
 
 		<sonar.pluginClass>org.sonar.plugins.l10n.FrenchPackPlugin</sonar.pluginClass>
 		<sonar.version>10.0.0.68432</sonar.version>
@@ -166,7 +172,7 @@
 			<plugin>
 				<groupId>org.sonarsource.sonar-packaging-maven-plugin</groupId>
 				<artifactId>sonar-packaging-maven-plugin</artifactId>
-				<version>1.21.0.505</version>
+        <version>1.22-SNAPSHOT</version>
 				<extensions>true</extensions>
 				<configuration>
 					<basePlugin>l10nen</basePlugin>
