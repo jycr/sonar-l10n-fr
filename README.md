@@ -8,7 +8,7 @@ This is the plugin to translate [SonarQube](http://www.sonarqube.org/) web appli
 ## Releases
 Releases can be installed directly via the Update Center page (browse Administration > System > Update Center). They can also be downloaded here.
 
-* Version 9.9 (2023 ?? ??). Supports SonarQube 9.9.
+* Version 9.8.0 (2023-01-04). [Download](https://github.com/jycr/sonar-l10n-fr/releases/download/9.8.0/sonar-l10n-fr-plugin-9.8.0.jar). Supports SonarQube 9.8.
 * Version 1.15.1 (2018 August 13th). [Download](https://github.com/jycr/sonar-l10n-fr/releases/download/1.15.1/sonar-l10n-fr-plugin-1.15.1.jar). Fixes for version 1.15
 * Version 1.15 (2018 May 26th). [Download](https://github.com/jycr/sonar-l10n-fr/releases/download/1.15/sonar-l10n-fr-plugin-1.15.jar). Supports SonarQube 6.7.3.
 * Version 1.14.2 (2017 July 26th). [Download](https://github.com/jycr/sonar-l10n-fr/releases/download/1.14.2/sonar-l10n-fr-plugin-1.14.2.jar). Supports SonarQube 5.6. Requires Java 8.
