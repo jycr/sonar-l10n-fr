@@ -15,7 +15,7 @@
 
   <name>French Pack for SonarQube</name>
   <description>Translate SonarQube web application in French</description>
-  <url>https://github.com/ZoeThivet/sonar-l10n-fr.git</url>
+  <url>https://github.com/jycr/sonar-l10n-fr.git</url>
   <inceptionYear>2011</inceptionYear>
 
   <licenses>
@@ -28,13 +28,13 @@
 
   <issueManagement>
     <system>GitHub</system>
-    <url>https://github.com/ZoeThivet/sonar-l10n-fr/issues</url>
+    <url>https://github.com/jycr/sonar-l10n-fr/issues</url>
   </issueManagement>
 
   <scm>
-    <connection>scm:git:git://github.com/ZoeThivet/sonar-l10n-fr.git</connection>
-    <developerConnection>scm:git:git@github.com:ZoeThivet/sonar-l10n-fr.git</developerConnection>
-    <url>https://github.com/ZoeThivet/sonar-l10n-fr</url>
+    <connection>scm:git:git://github.com/jycr/sonar-l10n-fr.git</connection>
+    <developerConnection>scm:git:git@github.com:jycr/sonar-l10n-fr.git</developerConnection>
+    <url>https://github.com/jycr/sonar-l10n-fr</url>
     <tag>HEAD</tag>
   </scm>
 
@@ -70,14 +70,12 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  <developers>
-    <developer>
-      <id>batmat</id>
+
+  <contributors>
+    <contributor>
       <name>Baptiste Mathus</name>
       <organizationUrl>http://batmat.net</organizationUrl>
-    </developer>
-  </developers>
-  <contributors>
+    </contributor>
     <contributor>
       <name>Fabrice Bellingard</name>
       <organization>SonarSource</organization>
@@ -91,6 +89,14 @@
     <contributor>
       <name>David Festal</name>
       <organizationUrl>http://serli.com</organizationUrl>
+    </contributor>
+    <contributor>
+      <name>Zoé THIVET</name>
+      <organizationUrl>https://github.com/ZoeThivet</organizationUrl>
+    </contributor>
+    <contributor>
+      <name>jycr</name>
+      <organizationUrl>https://github.com/jycr</organizationUrl>
     </contributor>
   </contributors>
 

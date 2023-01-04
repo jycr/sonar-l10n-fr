@@ -1,13 +1,13 @@
-# French Pack for SonarQube [![Build Status](https://api.travis-ci.org/ZoeThivet/sonar-l10n-fr.svg?branch=master)](https://travis-ci.org/ZoeThivet/sonar-l10n-fr)
+# French Pack for SonarQube [![Build Status](https://api.travis-ci.org/jycr/sonar-l10n-fr.svg?branch=master)](https://travis-ci.org/jycr/sonar-l10n-fr)
 
 This is the plugin to translate [SonarQube](http://www.sonarqube.org/) web application in French.
 
 ## Releases
 Releases can be installed directly via the Update Center page (browse Administration > System > Update Center). They can also be downloaded here.
 
-* Version 1.15.1 (2018 August 13th). [Download](https://github.com/ZoeThivet/sonar-l10n-fr/releases/download/1.15.1/sonar-l10n-fr-plugin-1.15.1.jar). Fixes for version 1.15
-* Version 1.15 (2018 May 26th). [Download](https://github.com/ZoeThivet/sonar-l10n-fr/releases/download/1.15/sonar-l10n-fr-plugin-1.15.jar). Supports SonarQube 6.7.3.
-* Version 1.14.2 (2017 July 26th). [Download](https://github.com/ZoeThivet/sonar-l10n-fr/releases/download/1.14.2/sonar-l10n-fr-plugin-1.14.2.jar). Supports SonarQube 5.6. Requires Java 8.
+* Version 1.15.1 (2018 August 13th). [Download](https://github.com/jycr/sonar-l10n-fr/releases/download/1.15.1/sonar-l10n-fr-plugin-1.15.1.jar). Fixes for version 1.15
+* Version 1.15 (2018 May 26th). [Download](https://github.com/jycr/sonar-l10n-fr/releases/download/1.15/sonar-l10n-fr-plugin-1.15.jar). Supports SonarQube 6.7.3.
+* Version 1.14.2 (2017 July 26th). [Download](https://github.com/jycr/sonar-l10n-fr/releases/download/1.14.2/sonar-l10n-fr-plugin-1.14.2.jar). Supports SonarQube 5.6. Requires Java 8.
 * Version 1.13 (2015 March 19th). [Download](http://search.maven.org/remotecontent?filepath=org/codehaus/sonar-plugins/l10n/sonar-l10n-fr-plugin/1.13/sonar-l10n-fr-plugin-1.13.jar). Supports SonarQube 4.5.4.
 
 ## Have questions or feedback?
