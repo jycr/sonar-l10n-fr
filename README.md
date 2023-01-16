@@ -3,7 +3,9 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=jycr_sonar-l10n-fr&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=jycr_sonar-l10n-fr)
 [![Build](https://github.com/jycr/sonar-l10n-fr/actions/workflows/build.yml/badge.svg)](https://github.com/jycr/sonar-l10n-fr/actions/workflows/build.yml)
 
-This is the plugin to translate [SonarQube](http://www.sonarqube.org/) web application in French.
+This is the plugin to translate [SonarQube](http://www.sonarqube.org/) web application in French (with [epicene writing](https://fr.wikipedia.org/wiki/Langage_%C3%A9pic%C3%A8ne "Open french Wikiepdia page for 'langage épicène'")).
+
+See : [Proposals for the translation of the main concepts](https://github.com/jycr/sonar-l10n-fr/discussions/33)
 
 ## Releases
 Releases can be installed directly via the Update Center page (browse Administration > System > Update Center). They can also be downloaded here.
