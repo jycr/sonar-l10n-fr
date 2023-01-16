@@ -255,6 +255,7 @@ public class FrenchPackPluginTest {
 		// Set line position for bad key in source file
 		Map<String, OccurenceToKeep> badSourceKey = Map.of(
 				"show_all=", new OccurenceToKeep(2),
+				"marketplace.installed=", new OccurenceToKeep(2),
 				"users.update=", new OccurenceToKeep(2)
 		);
 		final String expected = readLines(RESOURCE_BUNDLE_PATH_CORE)
