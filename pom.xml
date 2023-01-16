@@ -4,7 +4,7 @@
 
   <groupId>org.sonarqube.l10n.fr</groupId>
   <artifactId>sonar-l10n-fr-plugin</artifactId>
-  <version>9.8.1-SNAPSHOT</version>
+  <version>9.8.1</version>
   <packaging>sonar-plugin</packaging>
 
   <name>French Pack for SonarQube</name>
@@ -52,7 +52,7 @@
     <connection>scm:git:https://github.com/jycr/sonar-l10n-fr.git</connection>
     <developerConnection>scm:git:https@github.com:jycr/sonar-l10n-fr.git</developerConnection>
     <url>https://github.com/jycr/sonar-l10n-fr</url>
-    <tag>HEAD</tag>
+    <tag>9.8.1</tag>
   </scm>
   <issueManagement>
     <system>GitHub</system>
