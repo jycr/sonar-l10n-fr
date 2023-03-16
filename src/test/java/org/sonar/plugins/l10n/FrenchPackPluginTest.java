@@ -38,25 +38,28 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.sonar.test.i18n.BundleSynchronizedMatcher.L10N_PATH;
 
 public class FrenchPackPluginTest {
+	private static final String RESOURCE_BUNDLE = "org.sonar.l10n.core";
 	private ResourceBundle base;
 	private ResourceBundle translated;
 
 	@Before
 	public void init() throws IOException {
-		base = ResourceBundle.getBundle("org.sonar.l10n.core", new Locale(""));
+		base = ResourceBundle.getBundle(RESOURCE_BUNDLE, new Locale(""));
 		assertThat(base).isNotNull();
 		assertThat(base.getString("anonymous"))
 				.describedAs("Label must be in english")
 				.isEqualTo("Anonymous");
-		translated = ResourceBundle.getBundle("org.sonar.l10n.core", Locale.FRENCH);
+		translated = ResourceBundle.getBundle(RESOURCE_BUNDLE, Locale.FRENCH);
 		assertThat(translated).isNotNull();
 		assertThat(translated.getString("anonymous"))
 				.describedAs("Label must be in french")
@@ -97,6 +100,7 @@ public class FrenchPackPluginTest {
 			while ((line = lineReader.readLine()) != null) {
 				if (line.startsWith("login.login_to_sonarqube=")) {
 					matched = true;
+					// This test must be executed with Maven because only 'native2ascii-maven-plugin' plugin escape characters
 					assertThat(line).isEqualTo("login.login_to_sonarqube=Connexion \\u00E0 SonarQube");
 				}
 			}
@@ -136,6 +140,79 @@ public class FrenchPackPluginTest {
 					assertions.assertThat(translatedMatcher.group("space"))
 							.describedAs("End spaces should match for key: " + key)
 							.isEqualTo(baseMatcher.group("space"));
+				});
+		assertions.assertAll();
+	}
+
+	private List<String> getKeysToRemove() {
+		var baseKeys = base.keySet();
+		return translated.keySet().stream()
+				.filter(k -> !baseKeys.contains(k))
+				.collect(Collectors.toList());
+	}
+
+	private Stream<String> readLines(String path) throws IOException {
+		var url = ClassLoader.getSystemResource(path);
+		assertThat(url).isNotNull();
+		try (var input = new BufferedReader(new InputStreamReader(url.openStream()))) {
+			String line = null;
+			List<String> result = new ArrayList<>();
+			while ((line = input.readLine()) != null) {
+				result.add(line);
+			}
+			return result.stream();
+		}
+	}
+
+	@Test
+	public void non_existent_key_should_be_marked_with_TODO_to_remove_comment() throws IOException {
+		var toRemove = getKeysToRemove();
+		SoftAssertions assertions = new SoftAssertions();
+		final AtomicReference<String> previousLine = new AtomicReference<>("");
+		readLines(RESOURCE_BUNDLE.replace('.', '/') + "_fr.properties")
+				.forEach(line -> {
+					final String finalLine = line;
+					Optional<String> matchedKeyToCheck = toRemove.stream().filter(k -> finalLine.startsWith(k + "=")).findFirst();
+					if (matchedKeyToCheck.isPresent()) {
+						assertions.assertThat(previousLine.get())
+								.describedAs("Key must be mark to remove: " + matchedKeyToCheck.get())
+								.isEqualTo("# //TODO: To remove");
+					}
+					previousLine.set(line);
+				});
+
+		assertions.assertAll();
+	}
+
+	@Test
+	public void start_case_should_matches_for_letter() {
+		SoftAssertions assertions = new SoftAssertions();
+		base.keySet().stream()
+				.filter(key -> {
+					var value = base.getString(key);
+					return base.getString(key).length() > 0 &&
+							// Exception for "Barrière Qualité" because must be capitalized
+							!("quality gate".equalsIgnoreCase(value) && translated.getString(key).equals("Barrière Qualité"));
+				})
+				.forEach(key -> {
+					var firstCharacterBase = base.getString(key).replaceFirst("^\\s+", "").charAt(0);
+					var firstCharacterTranslated = translated.getString(key).replaceFirst("^\\s+", "").charAt(0);
+
+					Boolean baseIsLower = null;
+					Boolean translatedIsLower = null;
+
+					// if non alpha character, both isLowerCase and isUpperCase == false
+					if (Character.isLowerCase(firstCharacterBase) || Character.isUpperCase(firstCharacterBase)) {
+						baseIsLower = Character.isLowerCase(firstCharacterBase);
+					}
+					if (Character.isLowerCase(firstCharacterTranslated) || Character.isUpperCase(firstCharacterTranslated)) {
+						translatedIsLower = Character.isLowerCase(firstCharacterTranslated);
+					}
+					if (baseIsLower != null && translatedIsLower != null) {
+						assertions.assertThat(translatedIsLower)
+								.describedAs("First character case must match for: " + key)
+								.isEqualTo(baseIsLower);
+					}
 				});
 		assertions.assertAll();
 	}
