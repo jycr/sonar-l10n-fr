@@ -89,7 +89,7 @@
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
-      <version>3.23.1</version>
+      <version>3.24.2</version>
       <scope>test</scope>
     </dependency>
     <!-- Dependencies which are translated by this language pack -->
@@ -135,7 +135,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>3.2.1</version>
         <executions>
           <execution>
             <id>enforce-distribution-size</id>
@@ -145,6 +145,9 @@
             <phase>verify</phase>
             <configuration>
               <rules>
+                <requireMavenVersion>
+                  <version>3.9.0</version>
+                </requireMavenVersion>
                 <requireFilesSize>
                   <minsize>36000</minsize>
                   <maxsize>100000</maxsize>
