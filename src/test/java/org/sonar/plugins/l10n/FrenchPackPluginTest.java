@@ -19,7 +19,9 @@
  */
 package org.sonar.plugins.l10n;
 
+import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.sonar.api.Plugin;
 import org.sonar.api.SonarEdition;
@@ -34,12 +36,33 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.sonar.test.i18n.BundleSynchronizedMatcher.L10N_PATH;
 
 public class FrenchPackPluginTest {
+	private ResourceBundle base;
+	private ResourceBundle translated;
+
+	@Before
+	public void init() throws IOException {
+		base = ResourceBundle.getBundle("org.sonar.l10n.core", new Locale(""));
+		assertThat(base).isNotNull();
+		assertThat(base.getString("anonymous"))
+				.describedAs("Label must be in english")
+				.isEqualTo("Anonymous");
+		translated = ResourceBundle.getBundle("org.sonar.l10n.core", Locale.FRENCH);
+		assertThat(translated).isNotNull();
+		assertThat(translated.getString("anonymous"))
+				.describedAs("Label must be in french")
+				.isEqualTo("Anonyme");
+	}
+
 	@Test
 	public void testFrenchPackPluginName() {
 		FrenchPackPlugin frenchPackPlugin = new FrenchPackPlugin();
@@ -79,5 +102,41 @@ public class FrenchPackPluginTest {
 			}
 			assertThat(matched).isTrue();
 		}
+	}
+
+	private static final Pattern REGEX_START_SPACE = Pattern.compile("^(?<space>\\s*)(?<value>.*?)$");
+
+	@Test
+	public void start_spaces_should_remain() {
+		SoftAssertions assertions = new SoftAssertions();
+		base.keySet().stream()
+				.forEach(key -> {
+					Matcher translatedMatcher = REGEX_START_SPACE.matcher(translated.getString(key));
+					Matcher baseMatcher = REGEX_START_SPACE.matcher(base.getString(key));
+					assertions.assertThat(translatedMatcher.find()).isTrue();
+					assertions.assertThat(baseMatcher.find()).isTrue();
+					assertions.assertThat(translatedMatcher.group("space"))
+							.describedAs("Start spaces should match for key: " + key)
+							.isEqualTo(baseMatcher.group("space"));
+				});
+		assertions.assertAll();
+	}
+
+	private static final Pattern REGEX_END_SPACE = Pattern.compile("^(?<value>.*?)(?<space>\\s*)$");
+
+	@Test
+	public void end_spaces_should_remain() {
+		SoftAssertions assertions = new SoftAssertions();
+		base.keySet().stream()
+				.forEach(key -> {
+					Matcher translatedMatcher = REGEX_END_SPACE.matcher(translated.getString(key));
+					Matcher baseMatcher = REGEX_END_SPACE.matcher(base.getString(key));
+					assertions.assertThat(translatedMatcher.find()).isTrue();
+					assertions.assertThat(baseMatcher.find()).isTrue();
+					assertions.assertThat(translatedMatcher.group("space"))
+							.describedAs("End spaces should match for key: " + key)
+							.isEqualTo(baseMatcher.group("space"));
+				});
+		assertions.assertAll();
 	}
 }
