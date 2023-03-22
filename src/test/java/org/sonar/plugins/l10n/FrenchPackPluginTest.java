@@ -49,6 +49,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.util.Optional.ofNullable;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.sonar.test.i18n.BundleSynchronizedMatcher.L10N_PATH;
 
@@ -402,6 +403,36 @@ public class FrenchPackPluginTest {
 					Matcher matcher = NON_EPICENE_TERMS.matcher(translated.getString(key));
 					while (matcher.find()) {
 						assertions.fail("Non-epicene term '" + matcher.group(0) + "' must not be used for key: " + key);
+					}
+				});
+		assertions.assertAll();
+	}
+
+	private static final Pattern QUALITY_GATE = Pattern.compile("Barri(e|è)(?<plural>s?)\\s.*?Qualit(e|é)(s?)", Pattern.CASE_INSENSITIVE);
+	private static final Pattern PORTFOLIO = Pattern.compile("(Portfolio|portefeuille)(?<plural>s?)", Pattern.CASE_INSENSITIVE);
+	private static final Pattern QUALITY_PROFIL = Pattern.compile("Profil(?<plural>s?).*?Qualité", Pattern.CASE_INSENSITIVE);
+
+	@Test
+	public void right_term_must_be_used() {
+		SoftAssertions assertions = new SoftAssertions();
+		translated.keySet().stream()
+				.filter(key -> QUALITY_GATE.matcher(translated.getString(key)).find())
+				.forEach(key -> {
+					Matcher matcher = QUALITY_GATE.matcher(translated.getString(key));
+					while (matcher.find()) {
+						assertions.assertThat(matcher.group(0))
+								.describedAs("'Barrière(s) Qualité(s)' must be written in the right form for key: " + key)
+								.isEqualTo("Barrière" + ofNullable(matcher.group("plural")).orElse("") + " Qualité");
+					}
+				});
+		translated.keySet().stream()
+				.filter(key -> PORTFOLIO.matcher(translated.getString(key)).find())
+				.forEach(key -> {
+					Matcher matcher = PORTFOLIO.matcher(translated.getString(key));
+					while (matcher.find()) {
+						assertions.assertThat(matcher.group(0))
+								.describedAs("'Portfolio(s)' must be written in the right form for key: " + key)
+								.isEqualTo("Portfolio" + ofNullable(matcher.group("plural")).orElse(""));
 					}
 				});
 		assertions.assertAll();
