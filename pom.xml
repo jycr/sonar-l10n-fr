@@ -61,8 +61,8 @@
 
   <properties>
     <sonar.pluginClass>org.sonar.plugins.l10n.FrenchPackPlugin</sonar.pluginClass>
-    <sonar.version>9.8.0.63668</sonar.version>
-    <sonar-plugin-api.version>9.8.0.203</sonar-plugin-api.version>
+    <sonar.version>9.9.0.65466</sonar.version>
+    <sonar-plugin-api.version>9.14.0.375</sonar-plugin-api.version>
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>11</maven.compiler.source>
@@ -89,7 +89,7 @@
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
-      <version>3.23.1</version>
+      <version>3.24.2</version>
       <scope>test</scope>
     </dependency>
     <!-- Dependencies which are translated by this language pack -->
@@ -102,6 +102,15 @@
   </dependencies>
 
   <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <excludes>
+          <exclude>**/core.properties</exclude>
+         </excludes>
+        <filtering>false</filtering>
+      </resource>
+    </resources>
     <plugins>
       <plugin>
         <groupId>org.sonarsource.sonar-packaging-maven-plugin</groupId>
@@ -135,7 +144,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>3.2.1</version>
         <executions>
           <execution>
             <id>enforce-distribution-size</id>
@@ -145,6 +154,9 @@
             <phase>verify</phase>
             <configuration>
               <rules>
+                <requireMavenVersion>
+                  <version>3.8.7</version>
+                </requireMavenVersion>
                 <requireFilesSize>
                   <minsize>36000</minsize>
                   <maxsize>100000</maxsize>
