@@ -10,6 +10,14 @@ See : [Proposals for the translation of the main concepts](https://github.com/jy
 ## Releases
 Releases can be installed directly via the Update Center page (browse Administration > System > Update Center). They can also be downloaded here.
 
+* Version 9.9.0 (2023-03-22). [Download](https://github.com/jycr/sonar-l10n-fr/releases/download/9.9.0/sonar-l10n-fr-plugin-9.9.0.jar).
+  * Adds missing translations for SonarQube 9.9
+  * Fixes placeholder names
+  * Uses right term form for 'Barrière Qualité', 'Porfolio', 'Profil Qualité'
+  * Fixes some epicene writing issues
+  * Fixes some misleading translations
+  * Fixes some non-breaking/breaking space punctuation issues
+  * Fixes some encoding issues
 * Version 9.8.1 (2023-01-16). [Download](https://github.com/jycr/sonar-l10n-fr/releases/download/9.8.1/sonar-l10n-fr-plugin-9.8.1.jar). Fix misleading translations and epicene writing.
 * Version 9.8.0 (2023-01-04). [Download](https://github.com/jycr/sonar-l10n-fr/releases/download/9.8.0/sonar-l10n-fr-plugin-9.8.0.jar). Supports SonarQube 9.8.
 * Version 1.15.1 (2018 August 13th). [Download](https://github.com/jycr/sonar-l10n-fr/releases/download/1.15.1/sonar-l10n-fr-plugin-1.15.1.jar). Fixes for version 1.15
