@@ -468,4 +468,25 @@ public class FrenchPackPluginTest {
 		});
 		assertions.assertAll();
 	}
+
+	@Test
+	public void line_endings_must_be_linux_one() throws IOException {
+		SoftAssertions assertions = new SoftAssertions();
+		var url = ClassLoader.getSystemResource(RESOURCE_BUNDLE_PATH_TRANSLATED);
+		assertThat(url).isNotNull();
+		try (var reader = new BufferedReader(new InputStreamReader(url.openStream()))) {
+			int charIntValue;
+			int line = 1;
+			while ((charIntValue = reader.read()) != -1) {
+				char charValue = (char) charIntValue;
+				if ('\n' == charValue) {
+					++line;
+				}
+				if ('\r' == charValue) {
+					assertions.fail("Bad line endings on line: " + line);
+				}
+			}
+		}
+		assertions.assertAll();
+	}
 }
