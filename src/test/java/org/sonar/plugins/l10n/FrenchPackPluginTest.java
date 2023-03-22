@@ -40,44 +40,44 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.sonar.test.i18n.BundleSynchronizedMatcher.L10N_PATH;
 
 public class FrenchPackPluginTest {
-  @Test
-  public void testFrenchPackPluginName() {
-    FrenchPackPlugin frenchPackPlugin = new FrenchPackPlugin();
-    String pluginName = frenchPackPlugin.toString();
-    Assert.assertEquals("FrenchPackPlugin", pluginName);
-  }
+	@Test
+	public void testFrenchPackPluginName() {
+		FrenchPackPlugin frenchPackPlugin = new FrenchPackPlugin();
+		String pluginName = frenchPackPlugin.toString();
+		Assert.assertEquals("FrenchPackPlugin", pluginName);
+	}
 
-  @Test
-  public void noExtensions() {
-    FrenchPackPlugin frenchPackPlugin = new FrenchPackPlugin();
-    SonarRuntime runtime = SonarRuntimeImpl.forSonarQube(Version.create(9, 8),
-            SonarQubeSide.SCANNER, SonarEdition.COMMUNITY);
-    Plugin.Context context = new PluginContextImpl.Builder().setSonarRuntime(runtime).build();
-    frenchPackPlugin.define(context);
+	@Test
+	public void noExtensions() {
+		FrenchPackPlugin frenchPackPlugin = new FrenchPackPlugin();
+		SonarRuntime runtime = SonarRuntimeImpl.forSonarQube(Version.create(9, 8),
+				SonarQubeSide.SCANNER, SonarEdition.COMMUNITY);
+		Plugin.Context context = new PluginContextImpl.Builder().setSonarRuntime(runtime).build();
+		frenchPackPlugin.define(context);
 
-    assertThat(context.getExtensions()).isEmpty();
-  }
+		assertThat(context.getExtensions()).isEmpty();
+	}
 
-  @Test
-  public void bundles_should_be_up_to_date() {
-    I18nMatchers.assertBundlesUpToDate();
-  }
+	@Test
+	public void bundles_should_be_up_to_date() {
+		I18nMatchers.assertBundlesUpToDate();
+	}
 
-  @Test
-  public void non_acsii_character_should_be_escaped() throws IOException {
-    try (BufferedReader lineReader = new BufferedReader(new InputStreamReader(
-            Objects.requireNonNull(FrenchPackPlugin.class.getResourceAsStream(L10N_PATH + "core_fr.properties")),
-            StandardCharsets.ISO_8859_1
-    ))) {
-      String line;
-      boolean matched = false;
-      while ((line = lineReader.readLine()) != null) {
-        if (line.startsWith("login.login_to_sonarqube=")) {
-          matched = true;
-          assertThat(line).isEqualTo("login.login_to_sonarqube=Connexion \\u00E0 SonarQube");
-        }
-      }
-      assertThat(matched).isTrue();
-    }
-  }
+	@Test
+	public void non_acsii_character_should_be_escaped() throws IOException {
+		try (BufferedReader lineReader = new BufferedReader(new InputStreamReader(
+				Objects.requireNonNull(FrenchPackPlugin.class.getResourceAsStream(L10N_PATH + "core_fr.properties")),
+				StandardCharsets.ISO_8859_1
+		))) {
+			String line;
+			boolean matched = false;
+			while ((line = lineReader.readLine()) != null) {
+				if (line.startsWith("login.login_to_sonarqube=")) {
+					matched = true;
+					assertThat(line).isEqualTo("login.login_to_sonarqube=Connexion \\u00E0 SonarQube");
+				}
+			}
+			assertThat(matched).isTrue();
+		}
+	}
 }
