@@ -36,19 +36,26 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.sonar.test.i18n.BundleSynchronizedMatcher.L10N_PATH;
 
 public class FrenchPackPluginTest {
 	private static final String RESOURCE_BUNDLE = "org.sonar.l10n.core";
+	private static final String RESOURCE_BUNDLE_PATH_CORE = RESOURCE_BUNDLE.replace('.', '/') + ".properties";
+	private static final String RESOURCE_BUNDLE_PATH_TRANSLATED = RESOURCE_BUNDLE.replace('.', '/') + "_fr.properties";
 	private ResourceBundle base;
 	private ResourceBundle translated;
 
@@ -164,15 +171,18 @@ public class FrenchPackPluginTest {
 		}
 	}
 
+	private Optional<String> matchKeyToRemove(List<String> getKeysToRemove, String line) {
+		return getKeysToRemove.stream().filter(k -> line.startsWith(k + "=")).findFirst();
+	}
+
 	@Test
 	public void non_existent_key_should_be_marked_with_TODO_to_remove_comment() throws IOException {
 		var toRemove = getKeysToRemove();
 		SoftAssertions assertions = new SoftAssertions();
 		final AtomicReference<String> previousLine = new AtomicReference<>("");
-		readLines(RESOURCE_BUNDLE.replace('.', '/') + "_fr.properties")
+		readLines(RESOURCE_BUNDLE_PATH_TRANSLATED)
 				.forEach(line -> {
-					final String finalLine = line;
-					Optional<String> matchedKeyToCheck = toRemove.stream().filter(k -> finalLine.startsWith(k + "=")).findFirst();
+					Optional<String> matchedKeyToCheck = matchKeyToRemove(toRemove, line);
 					if (matchedKeyToCheck.isPresent()) {
 						assertions.assertThat(previousLine.get())
 								.describedAs("Key must be mark to remove: " + matchedKeyToCheck.get())
@@ -215,5 +225,65 @@ public class FrenchPackPluginTest {
 					}
 				});
 		assertions.assertAll();
+	}
+
+	private static class OccurenceToKeep {
+		private final int indexToKeep;
+		private int currentIndex = 0;
+
+		OccurenceToKeep(int indexToKeep) {
+			this.indexToKeep = indexToKeep;
+		}
+
+		boolean isToIgnore() {
+			return ++currentIndex != this.indexToKeep;
+		}
+
+		static OccurenceToKeep KEEP_ALL = new OccurenceToKeep(-1) {
+			@Override
+			boolean isToIgnore() {
+				return false;
+			}
+		};
+	}
+
+	@Test
+	public void translated_file_structure_shoud_be_same_as_base() throws IOException {
+		final List<String> keysToRemove = getKeysToRemove();
+		Pattern keyPattern = Pattern.compile("^([^#=]+=).*$");
+
+		// Set line position for bad key in source file
+		Map<String, OccurenceToKeep> badSourceKey = Map.of(
+				"show_all=", new OccurenceToKeep(2),
+				"users.update=", new OccurenceToKeep(2)
+		);
+		final String expected = readLines(RESOURCE_BUNDLE_PATH_CORE)
+				.map(line -> {
+					var matcher = keyPattern.matcher(line);
+					var normalizedLine = line;
+					if (matcher.matches()) {
+						normalizedLine = matcher.replaceFirst("$1");
+					}
+					if (badSourceKey.getOrDefault(normalizedLine, OccurenceToKeep.KEEP_ALL).isToIgnore()) {
+						return null;
+					}
+					return normalizedLine;
+				})
+				.filter(Objects::nonNull)
+				.map(String::trim)
+				.collect(Collectors.joining("\n"));
+		final String result = readLines(RESOURCE_BUNDLE_PATH_TRANSLATED)
+				.filter(line -> !line.equals("# //TODO: To remove") && matchKeyToRemove(keysToRemove, line).isEmpty())
+				.map(line -> {
+					var matcher = keyPattern.matcher(line);
+					if (matcher.matches()) {
+						return matcher.replaceFirst("$1");
+					}
+					return line;
+				})
+				.map(String::trim)
+				.collect(Collectors.joining("\n"));
+
+		assertThat(result).isEqualTo(expected);
 	}
 }
