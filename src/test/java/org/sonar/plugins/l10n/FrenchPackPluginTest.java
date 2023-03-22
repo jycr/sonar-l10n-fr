@@ -43,6 +43,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.TreeSet;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -435,6 +436,36 @@ public class FrenchPackPluginTest {
 								.isEqualTo("Portfolio" + ofNullable(matcher.group("plural")).orElse(""));
 					}
 				});
+		assertions.assertAll();
+	}
+
+	/*
+	 * Can match complex placeholder definition.
+	 * <p>
+	 * For example:
+	 * {warningsCount} {warningsCount, plural, one {warning} other {warnings}}
+	 */
+	private static final Pattern REGEX_PLACEHOLDER = Pattern.compile("\\{(?<name>[^,{}]+)[},]");
+
+
+	private TreeSet<String> extractPlaceHolders(String value) {
+		var matcher = REGEX_PLACEHOLDER.matcher(value);
+		TreeSet<String> result = new TreeSet<String>();
+		while (matcher.find()) {
+			result.add(matcher.group(1));
+		}
+		return result;
+	}
+
+	@Test
+	public void placeholders_must_have_same_name() {
+		SoftAssertions assertions = new SoftAssertions();
+		base.keySet().forEach(key -> {
+			assertions
+					.assertThat(extractPlaceHolders(translated.getString(key)))
+					.describedAs("Placeholder name(s) should be the same for key: " + key)
+					.isEqualTo(extractPlaceHolders(base.getString(key)));
+		});
 		assertions.assertAll();
 	}
 }
