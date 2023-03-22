@@ -155,7 +155,7 @@
             <configuration>
               <rules>
                 <requireMavenVersion>
-                  <version>3.9.0</version>
+                  <version>3.8.7</version>
                 </requireMavenVersion>
                 <requireFilesSize>
                   <minsize>36000</minsize>
