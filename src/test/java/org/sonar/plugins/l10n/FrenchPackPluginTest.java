@@ -312,15 +312,13 @@ public class FrenchPackPluginTest {
 						.fail("Punctuation with non breaking space must be preceded with non-breaking space for key '" + key + "': " + translated.getString(key))
 				);
 		translated.keySet().stream()
-				.filter(key -> NON_SPACE_PUNCTUATIONS_WITH_SPACE_BEFORE
-						.matcher(
+				.filter(key -> NON_SPACE_PUNCTUATIONS_WITH_SPACE_BEFORE.matcher(
 								translated.getString(key)
 										// Ignore ".NET" trademark
 										.replace(".NET", "")
 										// Ignore extension
 										.replaceAll("\\.[a-z]{3}(\\W)", "$1")
-						)
-						.matches()
+						).matches()
 				)
 				.forEach(key -> assertions
 						.fail("Punctuation without space before must not be preceded with a space for key '" + key + "': " + translated.getString(key))
@@ -385,6 +383,25 @@ public class FrenchPackPluginTest {
 						assertions.assertThat(translatedTerminalPunctuation)
 								.describedAs("Terminal punctuation must match for key: " + key)
 								.isEqualTo(baseTerminalPunctuation);
+					}
+				});
+		assertions.assertAll();
+	}
+
+	private static final Pattern NON_EPICENE_TERMS = Pattern.compile(
+			"administrateur|utilisateur|développeur|auteur|((^|\\W)êtes)",
+			Pattern.CASE_INSENSITIVE
+	);
+
+	@Test
+	public void should_not_use_non_epicene_term() {
+		SoftAssertions assertions = new SoftAssertions();
+		translated.keySet().stream()
+				.filter(key -> NON_EPICENE_TERMS.matcher(translated.getString(key)).find())
+				.forEach(key -> {
+					Matcher matcher = NON_EPICENE_TERMS.matcher(translated.getString(key));
+					while (matcher.find()) {
+						assertions.fail("Non-epicene term '" + matcher.group(0) + "' must not be used for key: " + key);
 					}
 				});
 		assertions.assertAll();
