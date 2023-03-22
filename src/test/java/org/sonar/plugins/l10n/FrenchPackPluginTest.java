@@ -200,13 +200,13 @@ public class FrenchPackPluginTest {
 		base.keySet().stream()
 				.filter(key -> {
 					var value = base.getString(key);
-					return base.getString(key).length() > 0 &&
+					return base.getString(key).trim().length() > 0 &&
 							// Exception for "Barrière Qualité" because must be capitalized
 							!("quality gate".equalsIgnoreCase(value) && translated.getString(key).equals("Barrière Qualité"));
 				})
 				.forEach(key -> {
-					var firstCharacterBase = base.getString(key).replaceFirst("^\\s+", "").charAt(0);
-					var firstCharacterTranslated = translated.getString(key).replaceFirst("^\\s+", "").charAt(0);
+					var firstCharacterBase = base.getString(key).trim().charAt(0);
+					var firstCharacterTranslated = translated.getString(key).trim().charAt(0);
 
 					Boolean baseIsLower = null;
 					Boolean translatedIsLower = null;
@@ -285,5 +285,107 @@ public class FrenchPackPluginTest {
 				.collect(Collectors.joining("\n"));
 
 		assertThat(result).isEqualTo(expected);
+	}
+
+	private static final Pattern NON_BREAKING_SPACE_PUNCTUATIONS_WITHOUT_NON_BREAKING_SPACE = Pattern.compile(".*[^ ][:;!?].*");
+	private static final Pattern NON_SPACE_PUNCTUATIONS_WITH_SPACE_BEFORE = Pattern.compile(".*\\s[.,…].*");
+
+	// NB: No space
+	private static final Pattern SPACE_AFTER_PUNCTUATIONS = Pattern.compile(".*\\s([.,:;!?]\\S|…[^\\s,])");
+
+	@Test
+	public void check_punctuation() {
+		SoftAssertions assertions = new SoftAssertions();
+		translated.keySet().stream()
+				.filter(key -> NON_BREAKING_SPACE_PUNCTUATIONS_WITHOUT_NON_BREAKING_SPACE
+						.matcher(
+								translated.getString(key)
+										// Ignore URL
+										.replaceAll("https?://(\\w+:\\w+@)?", "")
+										// Ignore string used for sample
+										.replace("':'", "")
+						)
+						.matches()
+				)
+				.forEach(key -> assertions
+						.fail("Punctuation with non breaking space must be preceded with non-breaking space for key '" + key + "': " + translated.getString(key))
+				);
+		translated.keySet().stream()
+				.filter(key -> NON_SPACE_PUNCTUATIONS_WITH_SPACE_BEFORE
+						.matcher(
+								translated.getString(key)
+										// Ignore ".NET" trademark
+										.replace(".NET", "")
+										// Ignore extension
+										.replaceAll("\\.[a-z]{3}(\\W)", "$1")
+						)
+						.matches()
+				)
+				.forEach(key -> assertions
+						.fail("Punctuation without space before must not be preceded with a space for key '" + key + "': " + translated.getString(key))
+				);
+		translated.keySet().stream()
+				.filter(key -> SPACE_AFTER_PUNCTUATIONS.matcher(
+								translated.getString(key)
+						).matches()
+				)
+				.forEach(key -> assertions
+						.fail("Punctuation must be followed by space for key '" + key + "': " + translated.getString(key))
+				);
+	}
+
+	private static final Pattern TERMINAL_PUNCTUATION = Pattern.compile("^.*?(?<terminalPunctuation>[,;.:?!…]?)$");
+	private static final Pattern ABBREVIATION = Pattern.compile("(Coef|Préc|Suiv)\\.", Pattern.CASE_INSENSITIVE);
+
+	@Test
+	public void terminal_punctuation_should_be_same_as_core() {
+		final List<String> dayOfWeekAbbreviations = List.of(
+				"Sun",
+				"Mon",
+				"Tue",
+				"Wed",
+				"Thu",
+				"Fri",
+				"Sat",
+				"Su",
+				"Mo",
+				"Tu",
+				"We",
+				"Th",
+				"Fr",
+				"Sa"
+		);
+		SoftAssertions assertions = new SoftAssertions();
+
+		base.keySet()
+				.stream()
+				.filter(key ->
+						// Abbreviation must be followed by stop point
+						!ABBREVIATION.matcher(translated.getString(key)).matches()
+				)
+				.forEach(key -> {
+					if (dayOfWeekAbbreviations.contains(key)) {
+						assertions.assertThat(translated.getString(key))
+								.describedAs("day of week abbreviations must ends with dot for key:" + key)
+								.endsWith(".");
+					} else {
+						final String baseValue = base.getString(key).trim()
+								// Replace three dots punctuation with real unicode symbol
+								.replace("...", "…");
+						var baseMatcher = TERMINAL_PUNCTUATION.matcher(baseValue);
+						assertThat(baseMatcher.find()).isTrue();
+						var baseTerminalPunctuation = baseMatcher.group("terminalPunctuation");
+
+						final String translatedValue = translated.getString(key).trim();
+						var translatedMatcher = TERMINAL_PUNCTUATION.matcher(translatedValue);
+						assertThat(translatedMatcher.find()).isTrue();
+						var translatedTerminalPunctuation = translatedMatcher.group("terminalPunctuation");
+
+						assertions.assertThat(translatedTerminalPunctuation)
+								.describedAs("Terminal punctuation must match for key: " + key)
+								.isEqualTo(baseTerminalPunctuation);
+					}
+				});
+		assertions.assertAll();
 	}
 }
