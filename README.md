@@ -3,37 +3,95 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=jycr_sonar-l10n-fr&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=jycr_sonar-l10n-fr)
 [![Build](https://github.com/jycr/sonar-l10n-fr/actions/workflows/build.yml/badge.svg)](https://github.com/jycr/sonar-l10n-fr/actions/workflows/build.yml)
 
-This is the plugin to translate [SonarQube](http://www.sonarqube.org/) web application in French (with [epicene writing](https://fr.wikipedia.org/wiki/Langage_%C3%A9pic%C3%A8ne "Open french Wikiepdia page for 'langage épicène'")).
-
-See : [Proposals for the translation of the main concepts](https://github.com/jycr/sonar-l10n-fr/discussions/33)
+This plugin offers a French language localization of [SonarQube](http://www.sonarqube.org/).
 
 ## Releases
-Releases can be installed directly via the Update Center page (browse Administration > System > Update Center). They can also be downloaded here.
 
-* Version 9.9.0 (2023-03-22). [Download](https://github.com/jycr/sonar-l10n-fr/releases/download/9.9.0/sonar-l10n-fr-plugin-9.9.0.jar).
-  * Adds missing translations for SonarQube 9.9
-  * Fixes placeholder names
-  * Uses right term form for 'Barrière Qualité', 'Porfolio', 'Profil Qualité'
-  * Fixes some epicene writing issues
-  * Fixes some misleading translations
-  * Fixes some non-breaking/breaking space punctuation issues
-  * Fixes some encoding issues
-* Version 9.8.1 (2023-01-16). [Download](https://github.com/jycr/sonar-l10n-fr/releases/download/9.8.1/sonar-l10n-fr-plugin-9.8.1.jar). Fix misleading translations and epicene writing.
-* Version 9.8.0 (2023-01-04). [Download](https://github.com/jycr/sonar-l10n-fr/releases/download/9.8.0/sonar-l10n-fr-plugin-9.8.0.jar). Supports SonarQube 9.8.
-* Version 1.15.1 (2018 August 13th). [Download](https://github.com/jycr/sonar-l10n-fr/releases/download/1.15.1/sonar-l10n-fr-plugin-1.15.1.jar). Fixes for version 1.15
-* Version 1.15 (2018 May 26th). [Download](https://github.com/jycr/sonar-l10n-fr/releases/download/1.15/sonar-l10n-fr-plugin-1.15.jar). Supports SonarQube 6.7.3.
-* Version 1.14.2 (2017 July 26th). [Download](https://github.com/jycr/sonar-l10n-fr/releases/download/1.14.2/sonar-l10n-fr-plugin-1.14.2.jar). Supports SonarQube 5.6. Requires Java 8.
-* Version 1.13 (2015 March 19th). [Download](http://search.maven.org/remotecontent?filepath=org/codehaus/sonar-plugins/l10n/sonar-l10n-fr-plugin/1.13/sonar-l10n-fr-plugin-1.13.jar). Supports SonarQube 4.5.4.
-
-## Have questions or feedback?
-Have question or feedback?
-To provide feedback (request a feature, report a bug etc.) use the [SonarQube Google Group](https://groups.google.com/forum/#!forum/sonarqube). Please do not forget to specify the language pack (French!), plugin version and SonarQube version.
-If you have a question on how to use plugin, direct it to [StackOverflow](http://stackoverflow.com/questions/tagged/sonarqube) tagged `sonarqube`.
+Releases can be installed directly via the Update Center page (browse Administration > System > Update Center). They can also be [downloaded manually](https://github.com/jycr/sonar-l10n-fr/releases) (see [release notes](https://github.com/jycr/sonar-l10n-fr/releases)).
 
 ## Contributing
 
-#### Topic in SonarQube Google Group
-To request a new feature, please create a new thread in [SonarQube Google Group](https://groups.google.com/forum/#!forum/sonarqube). Even if you plan to implement it yourself and submit it back to the community, please start a new thread first to be sure that we can use it.
+### Have questions or feedback?
 
-#### Pull Request (PR)
-To submit a contribution, create a pull request for this repository. Please make sure that you follow our [code style](https://github.com/SonarSource/sonar-developer-toolset#code-style) and all [tests](#testing) are passing (Travis build is created for each PR).
+To provide feedback (request a feature, report a bug etc.), you can fill an [issue](https://github.com/jycr/sonar-l10n-fr/issues).
+
+### Pull Request (PR)
+
+To submit a contribution, create a pull request for this repository. Please make sure that you follow [code style](https://github.com/SonarSource/sonar-developer-toolset#code-style-configuration-for-intellij) and all tests are passing.
+
+## Proposals for the translation of the main concepts
+
+Localization follows the principle of [epicene writing](https://fr.wikipedia.org/wiki/Langage_%C3%A9pic%C3%A8ne "Open french Wikiepdia page for 'langage épicène'").
+
+Below the list of the main concepts used in SonarQube, their description and their proposed French translation (sometimes with other proposals or synonyms).
+
+### [Quality Profile](https://docs.sonarqube.org/latest/instance-administration/quality-profiles/)
+
+> Define the set of [rules](https://docs.sonarqube.org/latest/user-guide/rules/overview/) to be applied during code analysis.
+
+Translation proposed: _**:fr: Profil Qualité**_
+
+### [Quality Gate](https://docs.sonarqube.org/latest/user-guide/quality-gates/)
+
+> Quality gates enforce a quality policy in your organization by answering one question: is my project ready for release?
+>
+> To answer this question, you define a set of conditions against which projects are measured. For example:
+> * No new blocker issues
+> * Code coverage on new code greater than 80%
+
+Translation proposed: _**:fr: Barrière Qualité**_
+
+### [Issue](https://docs.sonarqube.org/latest/user-guide/issues/)
+
+> While running an analysis, SonarQube raises an issue every time a piece of code breaks a coding rule.
+
+Translation proposed: _**:fr: Problème**_
+
+Other translation suggestions (to be discussed):
+* _**:fr: Défaut**_
+    * Can be confused with the term: _**:fr: Valeur par défaut**_ (_default value_)
+* _**:fr: Vice**_
+
+### [Security Hotspot](https://docs.sonarqube.org/latest/user-guide/security-hotspots/)
+
+> A security hotspot highlights a security-sensitive piece of code that the developer needs to review. Upon review, you'll either find there is no threat or you need to apply a fix to secure the code.
+>
+> Another way of looking at hotspots can be the concept of [Defense in depth (computing)](https://en.wikipedia.org/wiki/Defense_in_depth_(computing)), in which several redundant protection layers are placed in an application so that it becomes more resilient in the event of an attack.
+
+Translation proposed: _**:fr: Risque de sécurité**_
+
+### [Portfolio](https://docs.sonarqube.org/latest/user-guide/portfolios/)
+
+> The portfolio home page is the central place for managers and tech leads to keep an eye on the releasability of the projects under their supervision. Releasability is based on the portfolio's projects' [quality gates](https://docs.sonarqube.org/latest/user-guide/quality-gates/). Each portfolio home page offers an aggregate view of the releasability status of all projects in the portfolio.
+
+Translation proposed: _**:fr: Portfolio**_
+
+Other translation suggestions (to be discussed):
+* _**:fr: Portefeuille**_
+
+### [Tag](https://docs.sonarqube.org/latest/user-guide/rules/built-in-rule-tags/)
+
+> Tags are a way to categorize rules and issues. Issues inherit the tags on the rules that raised them. Some tags are language-specific, but many more appear across languages. Users can add tags to rules and issues and most rules have some tags out of the box
+
+Translation proposed: _**:fr: Étiquette**_
+
+Other translation suggestions (to be discussed):
+* _**:fr: Libellé**_
+
+### [Marketplace](https://docs.sonarqube.org/latest/instance-administration/marketplace/)
+
+> The Marketplace is the place for keeping the pieces of the SonarQube platform up to date. It lets you:
+
+Translation proposed: _**:fr: Boutique d'application**_
+
+### [Code smell](https://docs.sonarqube.org/latest/user-guide/concepts/#quality)
+
+> A maintainability-related issue in the code. Leaving it as-is means that at best, developers maintaining the code will have a harder time than they should when making changes. At worst, they'll be so confused by the state of the code that they'll introduce additional errors as they make changes.
+
+Translation proposed: _**:fr: Mauvaise pratique de programmation**_
+
+### [Clean as You Code](https://docs.sonarqube.org/latest/user-guide/clean-as-you-code/)
+
+> The Marketplace is the place for keeping the pieces of the SonarQube platform up to date. It lets you:
+
+Translation proposed: _**:fr: Nettoyer en codant**_
