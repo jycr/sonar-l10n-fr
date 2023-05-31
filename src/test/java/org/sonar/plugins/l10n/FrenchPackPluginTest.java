@@ -489,4 +489,26 @@ public class FrenchPackPluginTest {
 		}
 		assertions.assertAll();
 	}
+
+	/**
+	 * <p>From <a href="https://en.wikipedia.org/wiki/Apostrophe#Unicode">Wikipedia - Apostrophe (#Unicode)</a></p>
+	 * <bloquote>
+	 * U+2019 ’ RIGHT SINGLE QUOTATION MARK is preferred where the character is to represent a punctuation mark,
+	 * as for contractions: "we’ve", and the code is also referred to as a punctuation apostrophe.
+	 * The closing single quote and the apostrophe were unified in Unicode 2.1 "to correct problems in the mapping
+	 * tables from Windows and Macintosh code pages."[112] This can make searching text more difficult as quotes
+	 * and apostrophes cannot be distinguished without context.
+	 * </bloquote>
+	 */
+	@Test
+	public void apostrophe_should_use_correct_unicode() {
+		SoftAssertions assertions = new SoftAssertions();
+		base.keySet().forEach(key -> {
+			assertions
+							.assertThat(translated.getString(key))
+							.describedAs("Use ’ (\\u2019) for apostrophe punctuation mark for key: " + key)
+							.doesNotMatch(Pattern.compile(".*[\\u0027\\u02BC\\u02BB\\u02BD\\u02BE\\u02BF\\u02C8\\u0313\\u0315\\u055A\\u2018\\u201B\\u0060\\u00B4\\u2032\\u02B9\\u2035\\uA78B\\uA78C].*"));
+		});
+		assertions.assertAll();
+	}
 }
