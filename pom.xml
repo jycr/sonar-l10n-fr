@@ -4,7 +4,7 @@
 
   <groupId>org.sonarqube.l10n.fr</groupId>
   <artifactId>sonar-l10n-fr-plugin</artifactId>
-  <version>9.9.1-SNAPSHOT</version>
+  <version>{revision}</version>
   <packaging>sonar-plugin</packaging>
 
   <name>French Pack for SonarQube</name>
@@ -60,9 +60,16 @@
   </issueManagement>
 
   <properties>
+    <!-- This is only the default for local development, CI will override it! -->
+    <revision>develop-SNAPSHOT</revision>
+
     <sonar.pluginClass>org.sonar.plugins.l10n.FrenchPackPlugin</sonar.pluginClass>
     <sonar.version>9.9.0.65466</sonar.version>
     <sonar-plugin-api.version>9.14.0.375</sonar-plugin-api.version>
+
+    <maven.build.timestamp.format>yyyy-MM-dd'T'HH:mm:ss.SSSZ</maven.build.timestamp.format>
+    <!--suppress UnresolvedMavenProperty -->
+    <project.build.outputTimestamp>${git.commit.timestamp.datetime}</project.build.outputTimestamp>
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>11</maven.compiler.source>
@@ -111,6 +118,15 @@
         <filtering>false</filtering>
       </resource>
     </resources>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>me.qoomon</groupId>
+          <artifactId>maven-git-versioning-extension</artifactId>
+          <version>9.6.5</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
     <plugins>
       <plugin>
         <groupId>org.sonarsource.sonar-packaging-maven-plugin</groupId>
