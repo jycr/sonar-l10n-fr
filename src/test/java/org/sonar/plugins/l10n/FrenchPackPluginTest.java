@@ -445,7 +445,7 @@ public class FrenchPackPluginTest {
 	 * For example:
 	 * {warningsCount} {warningsCount, plural, one {warning} other {warnings}}
 	 */
-	private static final Pattern REGEX_PLACEHOLDER = Pattern.compile("\\{(?<name>[^,{}]+)[},]");
+	private static final Pattern REGEX_PLACEHOLDER = Pattern.compile("\\{(?<name>[^{}]+)(, plural, one \\{[^{}]+} other \\{[^{}]+})?}");
 
 
 	private TreeSet<String> extractPlaceHolders(String value) {
