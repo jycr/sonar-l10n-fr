@@ -64,7 +64,7 @@
 		<revision>develop-SNAPSHOT</revision>
 
 		<sonar.pluginClass>org.sonar.plugins.l10n.FrenchPackPlugin</sonar.pluginClass>
-		<sonar.version>9.9.1.69595</sonar.version>
+		<sonar.version>10.0.0.68432</sonar.version>
 
 		<maven.build.timestamp.format>yyyy-MM-dd'T'HH:mm:ss.SSSZ</maven.build.timestamp.format>
 		<!--suppress UnresolvedMavenProperty -->
