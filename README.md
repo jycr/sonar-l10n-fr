@@ -99,3 +99,13 @@ Translation proposed: _**:fr: Nettoyer en codant**_
 ### Pull-Request (PR) / Merge-Request (MR)
 
 Translation proposed: _**:fr: Demande de Fusion**_
+
+### [Token](https://docs.sonarqube.org/latest/user-guide/user-account/generating-and-using-tokens/)
+
+> SonarQube users can generate tokens that can be used to run analyses or invoke web services without access to the user's actual credentials.
+
+Translation proposed: _**:fr: Jeton d'accès**_
+
+### SCM
+
+Translation proposed: _**:fr: Gestionnaire de Sources**_
