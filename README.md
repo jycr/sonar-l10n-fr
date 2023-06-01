@@ -95,3 +95,7 @@ Translation proposed: _**:fr: Mauvaise pratique de programmation**_
 > The Marketplace is the place for keeping the pieces of the SonarQube platform up to date. It lets you:
 
 Translation proposed: _**:fr: Nettoyer en codant**_
+
+### Pull-Request (PR) / Merge-Request (MR)
+
+Translation proposed: _**:fr: Demande de Fusion**_
