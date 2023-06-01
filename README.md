@@ -109,3 +109,9 @@ Translation proposed: _**:fr: Jeton d'accès**_
 ### SCM
 
 Translation proposed: _**:fr: Gestionnaire de Sources**_
+
+### [Webhook](https://docs.sonarqube.org/latest/project-administration/webhooks/)
+
+> Webhooks notify external services when a project analysis is complete. An HTTP POST request including a JSON payload is sent to each URL.
+
+Translation proposed: _**:fr: Notification Web**_
