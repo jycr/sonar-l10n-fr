@@ -33,6 +33,7 @@ import java.util.Deque;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -234,14 +235,19 @@ public final class WebappKeys {
     while (idLast.find()) {
       String key = idLast.group(5);
       referenced.add(key);
-      defaults.putIfAbsent(key, idLast.group(1) != null ? idLast.group(1) : idLast.group(2));
+      defaults.putIfAbsent(key, literal(idLast, 1));
     }
     Matcher idFirst = DESCRIPTORS.get(1).matcher(body);
     while (idFirst.find()) {
       String key = idFirst.group(1);
       referenced.add(key);
-      defaults.putIfAbsent(key, idFirst.group(2) != null ? idFirst.group(2) : idFirst.group(3));
+      defaults.putIfAbsent(key, literal(idFirst, 2));
     }
+  }
+
+  /** The content of a {@link #LITERAL} whose first group is {@code group}: one quoting matched. */
+  private static String literal(Matcher matcher, int group) {
+    return Objects.requireNonNullElse(matcher.group(group), matcher.group(group + 1));
   }
 
   private static void collect(Pattern pattern, String body, TreeMap<String, String> into, boolean overwrite) {
