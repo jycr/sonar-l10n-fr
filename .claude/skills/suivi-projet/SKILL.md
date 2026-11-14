@@ -184,3 +184,10 @@ vérifie. Attendu :
 | Tous les tickets | groupé par Version SonarQube ; tri Priorité croissante |
 | Feuille de route | dates : début = Début, cible = Fin (non lisible par l'API, à vérifier à l'œil) |
 | Historique | tri Fin décroissante |
+
+Automatisations intégrées (menu ⋯ du projet > Workflows), à régler aussi dans l'interface :
+« Pull request linked to issue » doit poser **En revue**, pas « En cours » ; sinon chaque PR
+déclasse les tickets qu'elle cite. « Item added to project » pose « À faire » (l'ouverture du
+ticket règle ensuite le bon statut), « Item closed » et « Pull request merged » posent « Terminé ».
+Après la fusion d'une PR, rédiger le bilan et renseigner « Fin » des tickets qu'elle a clos :
+l'automatisation ferme le ticket mais ne remplit rien.
