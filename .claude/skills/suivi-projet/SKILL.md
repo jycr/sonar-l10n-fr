@@ -1,6 +1,6 @@
 ---
 name: suivi-projet
-description: Workflow de suivi du French Pack dans le GitHub Project « SonarQube Plugin FR » (Sonar-l10n-FR, projet n° 1). À appliquer à CHAQUE action sur le projet : traduction, montée de version SonarQube, build/CI, outillage, publication (tag, release, update-center, Marketplace), bug, documentation, échange sur le forum Sonar Community, suivi d'un correctif chez SonarSource, décision à arbitrer. Crée ou met à jour le ticket avant d'agir, renseigne tous ses champs, publie les captures d'écran de preuve et termine par un audit sans écart. Se déclenche aussi sur « ticket », « projet GitHub », « suivi », « preuve », « historiser », « où en est-on ».
+description: Workflow de suivi du French Pack dans le GitHub Project « SonarQube Plugin FR » (Sonar-l10n-FR, projet n° 1). À appliquer à CHAQUE action sur le projet : traduction, montée de version SonarQube, build/CI, outillage, publication (tag, release, update-center, Marketplace), bug, documentation, annonce du projet demandée par le mainteneur, suivi d'un correctif chez SonarSource, décision à arbitrer. Jamais pour les échanges personnels du mainteneur (forum, remerciements, discussions). Crée ou met à jour le ticket avant d'agir, renseigne tous ses champs, publie les captures d'écran de preuve et termine par un audit sans écart. Se déclenche aussi sur « ticket », « projet GitHub », « suivi », « preuve », « historiser », « où en est-on ».
 ---
 
 # Suivi du projet dans GitHub Projects
@@ -25,16 +25,21 @@ appel : ne jamais en coder un en dur.
 
 1. **Pas d'action sans ticket.** Ouvrir le ticket (ou retrouver l'existant avec `gh issue list`)
    *avant* de commencer, pas après coup.
-2. **Jamais de brouillon de projet** : toujours un vrai ticket du dépôt, ajouté au projet.
-3. **Tickets en français**, titre à l'infinitif et précis (« Traduire les nouveautés de SonarQube 26.11 »).
-4. **Un ticket = un livrable vérifiable.** Ce qui dépasse trois jours (Taille XL) se découpe en
+2. **Hors suivi : les échanges personnels du mainteneur.** Ses messages sur le forum, ses
+   remerciements et ses discussions avec la communauté ou SonarSource ne donnent lieu à
+   aucun ticket ni à aucune capture, même quand Claude a aidé à les rédiger. La catégorie
+   « Communauté » ne sert qu'aux communications du projet (annonce de version…), et
+   seulement à la demande du mainteneur.
+3. **Jamais de brouillon de projet** : toujours un vrai ticket du dépôt, ajouté au projet.
+4. **Tickets en français**, titre à l'infinitif et précis (« Traduire les nouveautés de SonarQube 26.11 »).
+5. **Un ticket = un livrable vérifiable.** Ce qui dépasse trois jours (Taille XL) se découpe en
    sous-tickets rattachés à un ticket parent de catégorie « Montée de version » ou équivalent.
-5. **Chaque champ est renseigné** selon le tableau ci-dessous ; `$P audit` est la référence.
-6. **Chaque passage en « En revue » ou « Terminé » s'appuie sur au moins une capture de preuve.**
-7. **Toute question au mainteneur passe par l'outil AskUserQuestion**, option recommandée en
+6. **Chaque champ est renseigné** selon le tableau ci-dessous ; `$P audit` est la référence.
+7. **Chaque passage en « En revue » ou « Terminé » s'appuie sur au moins une capture de preuve.**
+8. **Toute question au mainteneur passe par l'outil AskUserQuestion**, option recommandée en
    premier et suffixée « (Recommandé) » ; c'est une règle du workspace. Un ticket « Décision »
    s'arbitre ainsi, puis la réponse est consignée en commentaire du ticket.
-8. Créer et mettre à jour les tickets, les champs et les preuves fait partie du workflow
+9. Créer et mettre à jour les tickets, les champs et les preuves fait partie du workflow
    autorisé. **Publier ailleurs** (message sur le forum, PR sur un dépôt tiers, tag, release,
    commit, push) **reste soumis à l'accord explicite du mainteneur**, comme avant.
 
@@ -106,7 +111,7 @@ au moins une preuve publiée, puis `$P champs <n> "Status=En revue"`.
 Le passage en « Terminé » se fait par le compte du mainteneur : soit par lui (il fusionne la
 PR, ou déplace la carte dans la colonne « Terminé » du tableau), soit par Claude à travers ce
 skill, **dès que tous les critères sont remplis et prouvés**. Un critère qui demande une fusion,
-un tag, une release ou un message public attend l'accord du mainteneur (règle 8). Quand
+un tag, une release ou un message public attend l'accord du mainteneur (règle 9). Quand
 GitHub ou le mainteneur a clos le ticket, Claude complète le bilan et « Fin » : `$P audit` le
 signale.
 
@@ -150,7 +155,7 @@ promotionnel de SonarQube. Les captures se font en `fr-FR`, ce qui active le pac
 | Montée de version, Build & CI | « Infos système » de la recette sur la bonne version ; exécution GitHub Actions verte |
 | Outillage | sortie de l'outil (fichier rendu ou page) montrant le résultat |
 | Publication | page de la release, PR d'update-center fusionnée, fiche du pack dans la Marketplace |
-| Communauté | le message publié sur le forum |
+| Communauté | l'annonce du projet une fois publiée (jamais un échange personnel du mainteneur) |
 | Suivi amont | l'écran qui montre le défaut, puis le même écran corrigé ; le fil ou le ticket amont |
 | Documentation | la page rendue sur GitHub |
 | Décision | le commentaire qui consigne la décision, puis l'effet de la décision |
