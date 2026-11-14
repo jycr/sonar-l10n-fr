@@ -46,7 +46,9 @@ try {
     });
     if (!login.ok()) throw new Error(`connexion SonarQube refusée (${login.status()})`);
   }
-  await page.goto(url, { waitUntil: 'networkidle', timeout: 60000 });
+  await page.goto(url, { waitUntil: 'load', timeout: 60000 });
+  // SonarQube charge ses données après « load » ; GitHub, lui, n'est jamais tout à fait au repos.
+  await page.waitForLoadState('networkidle', { timeout: 20000 }).catch(() => {});
   // Écrans que SonarQube impose une fois par instance, avant toute autre page.
   for (const [path, why] of [
     ['/account/reset_password', 'changer le mot de passe admin par défaut, puis passer SQ_PASSWORD'],
