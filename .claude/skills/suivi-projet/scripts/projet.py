@@ -56,7 +56,7 @@ SINGLE_SELECT = {
         ('Publication', 'GREEN', 'Tag, release, update-center, Marketplace'),
         ('Bug', 'RED', 'Défaut constaté dans le pack'),
         ('Documentation', 'PINK', 'README, notes de version, guides'),
-        ('Communauté', 'ORANGE', 'Forum, réponses, échanges avec Sonar ou les utilisateurs'),
+        ('Communauté', 'ORANGE', 'Communication du projet (annonce de version…), à la demande du mainteneur ; jamais ses échanges personnels'),
         ('Suivi amont', 'YELLOW', 'Correctif ou évolution attendu côté SonarSource'),
         ('Décision', 'PURPLE', 'Choix à arbitrer par le mainteneur'),
     ],
