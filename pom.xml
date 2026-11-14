@@ -68,14 +68,14 @@
 		<revision>develop-SNAPSHOT</revision>
 
 		<sonar.pluginClass>org.sonar.plugins.l10n.FrenchPackPlugin</sonar.pluginClass>
-		<sonar.version>26.10.0.133078</sonar.version>
+		<sonar.version>26.11.0.134175</sonar.version>
 		<!-- The API shipped by the targeted server, so the build fails here rather than at
 		     runtime if something this pack uses ever leaves the public API. -->
 		<sonar.plugin.api.version>14.1.0.5543</sonar.plugin.api.version>
 		<!-- Written to the Sonar-Version manifest header, which the server reads as a
 		     MINIMUM: it refuses to start when its own plugin API is older. Left unset,
 		     sonar-packaging-maven-plugin copies the compile version there instead, which
-		     would lock the pack to 26.10 and later for no reason - it only implements
+		     would lock the pack to 26.11 and later for no reason - it only implements
 		     org.sonar.api.Plugin, unchanged for years. 9.14.0.375 is what the published
 		     10.0.0 declares, and what makes the Marketplace range [24.12,LATEST] hold. -->
 		<sonar.plugin.api.min.version>9.14.0.375</sonar.plugin.api.min.version>
@@ -160,7 +160,7 @@
 		<dependency>
 			<groupId>org.sonarsource.php</groupId>
 			<artifactId>sonar-php-plugin</artifactId>
-			<version>4.1.0.16998</version>
+			<version>4.2.0.27261</version>
 			<scope>test</scope>
 			<exclusions>
 				<exclusion>

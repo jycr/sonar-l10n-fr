@@ -33,6 +33,7 @@ import java.util.Deque;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -67,6 +68,7 @@ public final class WebappKeys {
 
   private static final Path REPORT = Paths.get("target/webapp-keys.properties");
   private static final Path UNDEFINED = Paths.get("target/webapp-keys-undefined.txt");
+  private static final Path UNDEFINED_DEFAULTS = Paths.get("target/webapp-keys-undefined-defaults.properties");
 
   /** Script tags in index.html, which is where the entry bundle names are. */
   private static final Pattern SCRIPT = Pattern.compile("src=\"([^\"]+\\.js)\"");
@@ -144,6 +146,26 @@ public final class WebappKeys {
   private static final Pattern REFERENCED =
     Pattern.compile("\\(\\s*\\{\\s*id:\\s*[\"`]([a-zA-Z][A-Za-z0-9_]*(?:\\.[A-Za-z0-9_\\-]+)+)[\"`]");
 
+  /** A string literal in either quoting the minifier uses, its content in the group. */
+  private static final String LITERAL = "(?:`((?:[^`\\\\]|\\\\.)*)`|\"((?:[^\"\\\\]|\\\\.)*)\")";
+
+  /** A key literal, the key in the group. */
+  private static final String KEY_LITERAL = "[\"`]([a-zA-Z][A-Za-z0-9_]*(?:\\.[A-Za-z0-9_\\-]+)+)[\"`]";
+
+  /**
+   * A message descriptor passed as props, {@code jsx(FormattedMessage, {defaultMessage: ...,
+   * id: ...})}, which {@link #REFERENCED} leaves out on purpose since the props shape is also
+   * that of a DOM id. Carrying a {@code defaultMessage} is what makes it a message for sure.
+   * The design system writes these with the id last -- the pagination buttons, {@code
+   * pagination.previous} and {@code pagination.next}, went unnoticed until 26.11 for that
+   * reason -- so both orders are read. The default message is kept: it is the English the
+   * plugin bundle needs for a key nothing else defines.
+   */
+  private static final List<Pattern> DESCRIPTORS = List.of(
+    Pattern.compile("\\{\\s*defaultMessage:\\s*" + LITERAL + "\\s*,(?:\\s*description:\\s*" + LITERAL
+      + "\\s*,)?\\s*id:\\s*" + KEY_LITERAL),
+    Pattern.compile("\\{\\s*id:\\s*" + KEY_LITERAL + "\\s*,\\s*defaultMessage:\\s*" + LITERAL));
+
   private WebappKeys() {
     // utility class
   }
@@ -164,6 +186,7 @@ public final class WebappKeys {
 
     TreeMap<String, String> messages = new TreeMap<>();
     Set<String> referenced = new TreeSet<>();
+    TreeMap<String, String> defaults = new TreeMap<>();
     Deque<String> pending = new ArrayDeque<>(scripts);
     Set<String> read = new HashSet<>();
     while (!pending.isEmpty()) {
@@ -182,6 +205,7 @@ public final class WebappKeys {
       while (asked.find()) {
         referenced.add(asked.group(1));
       }
+      collectDescriptors(body, referenced, defaults);
       Matcher chunk = CHUNK.matcher(body);
       while (chunk.find()) {
         pending.push("/js/" + chunk.group(1));
@@ -195,11 +219,35 @@ public final class WebappKeys {
 
     referenced.removeAll(messages.keySet());
     Files.write(UNDEFINED, String.join("\n", referenced).getBytes(StandardCharsets.UTF_8));
+    StringBuilder known = new StringBuilder();
+    referenced.stream().filter(defaults::containsKey)
+      .forEach(key -> known.append(key).append('=').append(defaults.get(key)).append('\n'));
+    Files.write(UNDEFINED_DEFAULTS, known.toString().getBytes(StandardCharsets.UTF_8));
 
     System.out.printf("%d messages read from %d bundle(s) at %s%n", messages.size(), read.size(), base);
     System.out.println("Written to " + REPORT);
     System.out.printf("%d key(s) the code asks for but nothing defines -- see %s%n",
       referenced.size(), UNDEFINED);
+  }
+
+  private static void collectDescriptors(String body, Set<String> referenced, TreeMap<String, String> defaults) {
+    Matcher idLast = DESCRIPTORS.get(0).matcher(body);
+    while (idLast.find()) {
+      String key = idLast.group(5);
+      referenced.add(key);
+      defaults.putIfAbsent(key, literal(idLast, 1));
+    }
+    Matcher idFirst = DESCRIPTORS.get(1).matcher(body);
+    while (idFirst.find()) {
+      String key = idFirst.group(1);
+      referenced.add(key);
+      defaults.putIfAbsent(key, literal(idFirst, 2));
+    }
+  }
+
+  /** The content of a {@link #LITERAL} whose first group is {@code group}: one quoting matched. */
+  private static String literal(Matcher matcher, int group) {
+    return Objects.requireNonNullElse(matcher.group(group), matcher.group(group + 1));
   }
 
   private static void collect(Pattern pattern, String body, TreeMap<String, String> into, boolean overwrite) {

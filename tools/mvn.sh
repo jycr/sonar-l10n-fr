@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 # Runs Maven inside a container, so no local Maven/JDK install is required.
 #
-# JDK 21 is not arbitrary: sonar-core and sonar-testing-harness 26.10 are compiled
+# JDK 21 is not arbitrary: sonar-core and sonar-testing-harness 26.11 are compiled
 # with class file major version 65 (Java 21). An older JDK cannot read them. The
 # plugin itself still targets Java 17 (maven.compiler.release in pom.xml), so the
 # jar keeps loading on older servers.

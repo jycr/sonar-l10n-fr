@@ -106,11 +106,12 @@ public class FrenchPackExtensionBundleTest {
 
   @Test
   public void should_not_use_non_epicene_term() {
-    SoftAssertions assertions = new SoftAssertions();
-    french.keySet().stream()
+    assertThat(french.keySet().stream()
       .filter(key -> NON_EPICENE_TERMS.matcher(french.getString(key)).find())
-      .forEach(key -> assertions.fail("Non-epicene term used for key: " + key));
-    assertions.assertAll();
+      .sorted()
+      .toList())
+      .describedAs("Non-epicene term used for these keys")
+      .isEmpty();
   }
 
   private static final Pattern WRONG_APOSTROPHE = Pattern.compile(
@@ -126,13 +127,13 @@ public class FrenchPackExtensionBundleTest {
     assertions.assertAll();
   }
 
+  /** Any character but U+00A0, the non-breaking space French puts before these marks. */
   private static final Pattern PUNCTUATION_WITHOUT_NON_BREAKING_SPACE =
-    Pattern.compile(".*[^ ][:;!?].*");
+    Pattern.compile("[^\\u00A0][:;!?]");
 
   @Test
   public void check_punctuation() {
-    SoftAssertions assertions = new SoftAssertions();
-    french.keySet().stream()
+    assertThat(french.keySet().stream()
       .filter(key -> PUNCTUATION_WITHOUT_NON_BREAKING_SPACE
         // URLs, the CI/CD style shorthand, and code tokens carry colons that are not
         // punctuation. A French colon is always followed by a space, so a colon glued to
@@ -142,10 +143,12 @@ public class FrenchPackExtensionBundleTest {
           .replaceAll("https?://(\\w+:\\w+@)?", "")
           .replace("CI/CD", "")
           .replaceAll("(?<=\\w)[:;](?=\\S)", ""))
-        .matches())
-      .forEach(key -> assertions.fail(
-        "Punctuation must be preceded with a non-breaking space for key '" + key + "': " + french.getString(key)));
-    assertions.assertAll();
+        .find())
+      .sorted()
+      .map(key -> key + ": " + french.getString(key))
+      .toList())
+      .describedAs("Punctuation must be preceded with a non-breaking space")
+      .isEmpty();
   }
 
   @Test
