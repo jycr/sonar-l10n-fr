@@ -39,7 +39,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -62,7 +61,7 @@ public class FrenchPackPluginTest {
 	private ResourceBundle translated;
 
 	@Before
-	public void init() throws IOException {
+	public void init() {
 		base = ResourceBundle.getBundle(RESOURCE_BUNDLE, new Locale(""));
 		assertThat(base).isNotNull();
 		assertThat(base.getString("anonymous"))
@@ -140,39 +139,40 @@ public class FrenchPackPluginTest {
 
 	private static final Pattern ESCAPED_CHARACTER = Pattern.compile("\\\\u[0-9a-fA-F]{4}");
 
-	private static final Pattern REGEX_START_SPACE = Pattern.compile("^(?<space>\\s*)(?<value>.*?)$");
+	/** The characters {@code \\s} stands for in a regular expression. */
+	private static final String SPACES = " \t\n\u000B\f\r";
+
+	private static String leadingSpace(String value) {
+		int end = 0;
+		while (end < value.length() && SPACES.indexOf(value.charAt(end)) >= 0) {
+			++end;
+		}
+		return value.substring(0, end);
+	}
+
+	private static String trailingSpace(String value) {
+		int start = value.length();
+		while (start > 0 && SPACES.indexOf(value.charAt(start - 1)) >= 0) {
+			--start;
+		}
+		return value.substring(start);
+	}
 
 	@Test
 	public void start_spaces_should_remain() {
 		SoftAssertions assertions = new SoftAssertions();
-		base.keySet().stream()
-				.forEach(key -> {
-					Matcher translatedMatcher = REGEX_START_SPACE.matcher(translated.getString(key));
-					Matcher baseMatcher = REGEX_START_SPACE.matcher(base.getString(key));
-					assertions.assertThat(translatedMatcher.find()).isTrue();
-					assertions.assertThat(baseMatcher.find()).isTrue();
-					assertions.assertThat(translatedMatcher.group("space"))
-							.describedAs("Start spaces should match for key: " + key)
-							.isEqualTo(baseMatcher.group("space"));
-				});
+		base.keySet().forEach(key -> assertions.assertThat(leadingSpace(translated.getString(key)))
+				.describedAs("Start spaces should match for key: " + key)
+				.isEqualTo(leadingSpace(base.getString(key))));
 		assertions.assertAll();
 	}
-
-	private static final Pattern REGEX_END_SPACE = Pattern.compile("^(?<value>.*?)(?<space>\\s*)$");
 
 	@Test
 	public void end_spaces_should_remain() {
 		SoftAssertions assertions = new SoftAssertions();
-		base.keySet().stream()
-				.forEach(key -> {
-					Matcher translatedMatcher = REGEX_END_SPACE.matcher(translated.getString(key));
-					Matcher baseMatcher = REGEX_END_SPACE.matcher(base.getString(key));
-					assertions.assertThat(translatedMatcher.find()).isTrue();
-					assertions.assertThat(baseMatcher.find()).isTrue();
-					assertions.assertThat(translatedMatcher.group("space"))
-							.describedAs("End spaces should match for key: " + key)
-							.isEqualTo(baseMatcher.group("space"));
-				});
+		base.keySet().forEach(key -> assertions.assertThat(trailingSpace(translated.getString(key)))
+				.describedAs("End spaces should match for key: " + key)
+				.isEqualTo(trailingSpace(base.getString(key))));
 		assertions.assertAll();
 	}
 
@@ -180,7 +180,7 @@ public class FrenchPackPluginTest {
 		var baseKeys = base.keySet();
 		return translated.keySet().stream()
 				.filter(k -> !baseKeys.contains(k))
-				.collect(Collectors.toList());
+				.toList();
 	}
 
 	private Stream<String> readLines(String path) throws IOException {
@@ -225,7 +225,7 @@ public class FrenchPackPluginTest {
 		base.keySet().stream()
 				.filter(key -> {
 					var value = base.getString(key);
-					return base.getString(key).trim().length() > 0 &&
+					return !value.trim().isEmpty() &&
 							// Exception for "Barrière Qualité" because must be capitalized
 							!("quality gate".equalsIgnoreCase(value) && translated.getString(key).equals("Barrière Qualité"));
 				})
@@ -304,8 +304,8 @@ public class FrenchPackPluginTest {
 		assertThat(result).isEqualTo(expected);
 	}
 
-	private static final Pattern NON_BREAKING_SPACE_PUNCTUATIONS_WITHOUT_NON_BREAKING_SPACE = Pattern.compile(".*[^ ][:;!?].*");
-	private static final Pattern NON_SPACE_PUNCTUATIONS_WITH_SPACE_BEFORE = Pattern.compile(".*\\s[.,…].*");
+	private static final Pattern NON_BREAKING_SPACE_PUNCTUATIONS_WITHOUT_NON_BREAKING_SPACE = Pattern.compile("[^\\u00A0][:;!?]");
+	private static final Pattern NON_SPACE_PUNCTUATIONS_WITH_SPACE_BEFORE = Pattern.compile("\\s[.,…]");
 
 	// NB: No space
 	private static final Pattern SPACE_AFTER_PUNCTUATIONS = Pattern.compile(".*\\s([.,:;!?]\\S|…[^\\s,])");
@@ -322,7 +322,7 @@ public class FrenchPackPluginTest {
 										// Ignore string used for sample
 										.replace("':'", "")
 						)
-						.matches()
+						.find()
 				)
 				.forEach(key -> assertions
 						.fail("Punctuation with non breaking space must be preceded with non-breaking space for key '" + key + "': " + translated.getString(key))
@@ -334,7 +334,7 @@ public class FrenchPackPluginTest {
 										.replace(".NET", "")
 										// Ignore extension
 										.replaceAll("\\.[a-z]{3}(\\W)", "$1")
-						).matches()
+						).find()
 				)
 				.forEach(key -> assertions
 						.fail("Punctuation without space before must not be preceded with a space for key '" + key + "': " + translated.getString(key))
@@ -411,21 +411,20 @@ public class FrenchPackPluginTest {
 
 	@Test
 	public void should_not_use_non_epicene_term() {
-		SoftAssertions assertions = new SoftAssertions();
-		translated.keySet().stream()
-				.filter(key -> NON_EPICENE_TERMS.matcher(translated.getString(key)).find())
-				.forEach(key -> {
-					Matcher matcher = NON_EPICENE_TERMS.matcher(translated.getString(key));
-					while (matcher.find()) {
-						assertions.fail("Non-epicene term '" + matcher.group(0) + "' must not be used for key: " + key);
-					}
-				});
-		assertions.assertAll();
+		List<String> found = new ArrayList<>();
+		translated.keySet().stream().sorted().forEach(key -> {
+			Matcher matcher = NON_EPICENE_TERMS.matcher(translated.getString(key));
+			while (matcher.find()) {
+				found.add(key + ": " + matcher.group(0));
+			}
+		});
+		assertThat(found)
+				.describedAs("Non-epicene terms must not be used")
+				.isEmpty();
 	}
 
 	private static final Pattern QUALITY_GATE = Pattern.compile("Barri(e|è)(?<plural>s?)\\s.*?Qualit(e|é)(s?)", Pattern.CASE_INSENSITIVE);
 	private static final Pattern PORTFOLIO = Pattern.compile("(Portfolio|portefeuille)(?<plural>s?)", Pattern.CASE_INSENSITIVE);
-	private static final Pattern QUALITY_PROFIL = Pattern.compile("Profil(?<plural>s?).*?Qualité", Pattern.CASE_INSENSITIVE);
 
 	@Test
 	public void right_term_must_be_used() {
@@ -546,7 +545,7 @@ public class FrenchPackPluginTest {
 
 	@Test
 	public void line_endings_must_be_linux_one() throws IOException {
-		SoftAssertions assertions = new SoftAssertions();
+		List<Integer> badLines = new ArrayList<>();
 		var url = ClassLoader.getSystemResource(RESOURCE_BUNDLE_PATH_TRANSLATED);
 		assertThat(url).isNotNull();
 		try (var reader = new BufferedReader(new InputStreamReader(url.openStream()))) {
@@ -558,11 +557,13 @@ public class FrenchPackPluginTest {
 					++line;
 				}
 				if ('\r' == charValue) {
-					assertions.fail("Bad line endings on line: " + line);
+					badLines.add(line);
 				}
 			}
 		}
-		assertions.assertAll();
+		assertThat(badLines)
+				.describedAs("Bad line endings (CR) on these lines")
+				.isEmpty();
 	}
 
 	/**

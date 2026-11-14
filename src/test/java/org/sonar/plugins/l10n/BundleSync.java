@@ -32,7 +32,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.stream.Collectors;
 
 /**
  * Rewrites {@code core_fr.properties} from the English reference bundle shipped in
@@ -62,7 +61,7 @@ import java.util.stream.Collectors;
  * </ul>
  *
  * <p>Obsolete keys -- present in the translation, gone from the reference -- are dropped
- * rather than kept behind a "TODO: To remove" marker: this bundle targets one SonarQube
+ * rather than kept behind a "to remove" marker comment: this bundle targets one SonarQube
  * line, and older lines have their own branch.
  */
 public final class BundleSync {
@@ -139,7 +138,7 @@ public final class BundleSync {
       }
       return new String(input.readAllBytes(), StandardCharsets.UTF_8)
         .lines()
-        .collect(Collectors.toList());
+        .toList();
     }
   }
 
@@ -236,7 +235,7 @@ public final class BundleSync {
       byPrefix.merge(dot < 0 ? key : key.substring(0, dot), 1, Integer::sum);
     }
     byPrefix.entrySet().stream()
-      .sorted((a, b) -> b.getValue() - a.getValue())
+      .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
       .forEach(e -> out.append(String.format("%6d  %s%n", e.getValue(), e.getKey())));
 
     appendList(out, "Dropped (obsolete)", removed);
