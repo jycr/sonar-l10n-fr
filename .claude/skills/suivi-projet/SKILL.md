@@ -31,7 +31,10 @@ appel : ne jamais en coder un en dur.
    sous-tickets rattachés à un ticket parent de catégorie « Montée de version » ou équivalent.
 5. **Chaque champ est renseigné** selon le tableau ci-dessous ; `$P audit` est la référence.
 6. **Chaque passage en « En revue » ou « Terminé » s'appuie sur au moins une capture de preuve.**
-7. Créer et mettre à jour les tickets, les champs et les preuves fait partie du workflow
+7. **Toute question au mainteneur passe par l'outil AskUserQuestion**, option recommandée en
+   premier et suffixée « (Recommandé) » ; c'est une règle du workspace. Un ticket « Décision »
+   s'arbitre ainsi, puis la réponse est consignée en commentaire du ticket.
+8. Créer et mettre à jour les tickets, les champs et les preuves fait partie du workflow
    autorisé. **Publier ailleurs** (message sur le forum, PR sur un dépôt tiers, tag, release,
    commit, push) **reste soumis à l'accord explicite du mainteneur**, comme avant.
 
