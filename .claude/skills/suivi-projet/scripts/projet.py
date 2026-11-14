@@ -85,7 +85,7 @@ TEXTS = ['Preuves', 'Lien externe']
 
 VIEWS = [
     # (nom, disposition, filtre, champs visibles)
-    ('Tableau', 'BOARD_LAYOUT', '-status:Terminé',
+    ('Tableau', 'BOARD_LAYOUT', '',
      ['Title', 'Assignees', 'Catégorie', 'Priorité', 'Taille', 'Version SonarQube']),
     ('Tous les tickets', 'TABLE_LAYOUT', '',
      ['Title', 'Status', 'Catégorie', 'Priorité', 'Taille', 'Version SonarQube', 'Milestone',

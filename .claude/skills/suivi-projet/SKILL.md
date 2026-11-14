@@ -103,6 +103,13 @@ au moins une preuve publiée, puis `$P champs <n> "Status=En revue"`.
 
 ### 6. Terminer
 
+Le passage en « Terminé » se fait par le compte du mainteneur : soit par lui (il fusionne la
+PR, ou déplace la carte dans la colonne « Terminé » du tableau), soit par Claude à travers ce
+skill, **dès que tous les critères sont remplis et prouvés**. Un critère qui demande une fusion,
+un tag, une release ou un message public attend l'accord du mainteneur (règle 8). Quand
+GitHub ou le mainteneur a clos le ticket, Claude complète le bilan et « Fin » : `$P audit` le
+signale.
+
 1. Cocher tous les critères d'acceptation dans la description (`gh issue edit <n> --body-file …`).
 2. Publier le bilan à partir de [templates/bilan.md](templates/bilan.md) : `gh issue comment <n> --body-file …`.
 3. `$P champs <n> "Fin=today" "Status=Terminé"`.
@@ -180,7 +187,7 @@ vérifie. Attendu :
 
 | Vue | Réglage |
 |---|---|
-| Tableau | colonnes par Status (défaut) ; tri Priorité croissante |
+| Tableau | colonnes par Status (défaut), sans filtre : « Terminé » visible ; tri Priorité croissante |
 | Tous les tickets | groupé par Version SonarQube ; tri Priorité croissante |
 | Feuille de route | dates : début = Début, cible = Fin (non lisible par l'API, à vérifier à l'œil) |
 | Historique | tri Fin décroissante |
