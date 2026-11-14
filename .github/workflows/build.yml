@@ -17,14 +17,14 @@ jobs:
       # contributors -- which is exactly what the guard tests.
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           # Shallow clones would hurt the relevancy of the analysis, and
           # maven-git-versioning-extension derives the version from git metadata.
           fetch-depth: 0
 
       - name: Set up JDK 21
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v6
         with:
           distribution: temurin
           # 21, not 17: sonar-core and sonar-testing-harness 26.11 are compiled with class

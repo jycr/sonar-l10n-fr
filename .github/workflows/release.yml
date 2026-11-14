@@ -19,7 +19,7 @@ jobs:
     name: Build and publish the plugin
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           # maven-git-versioning-extension reads the tag from git metadata to set the
           # artifact version. A shallow clone has no tags, and the build would fall back
@@ -27,7 +27,7 @@ jobs:
           fetch-depth: 0
 
       - name: Set up JDK 21
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: 21
