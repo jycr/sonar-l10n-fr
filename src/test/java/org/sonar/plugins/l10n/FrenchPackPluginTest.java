@@ -42,6 +42,7 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Matcher;
@@ -308,45 +309,52 @@ public class FrenchPackPluginTest {
 	private static final Pattern NON_SPACE_PUNCTUATIONS_WITH_SPACE_BEFORE = Pattern.compile("\\s[.,…]");
 
 	// NB: No space
-	private static final Pattern SPACE_AFTER_PUNCTUATIONS = Pattern.compile(".*\\s([.,:;!?]\\S|…[^\\s,])");
+	private static final Pattern SPACE_AFTER_PUNCTUATIONS = Pattern.compile("\\s([.,:;!?]\\S|…[^\\s,])");
+
+	/**
+	 * Keys quoting English text the user must find verbatim elsewhere, where French typography
+	 * does not apply: the Bitbucket permission names, written as the Bitbucket screens show them.
+	 */
+	private static final Set<String> PUNCTUATION_EXCEPTIONS = Set.of(
+			"onboarding.create_project.pat_help.instructions.bitbucket_server",
+			"onboarding.create_project.enter_password.instructions.bitbucket_cloud");
+
+	/**
+	 * What remains of a value once the parts that are not French prose are taken out: URLs, the
+	 * ':' sample, the .NET trademark, tokens glued to a dot (a file extension, a path such as
+	 * .github/workflows, the character list .-_@), a colon glued between two words
+	 * (groupId:artifactId) and a single character quoted between apostrophes (’:’).
+	 */
+	private static String prose(String value) {
+		return value
+				.replaceAll("https?://(\\w+:\\w+@)?", "")
+				.replace("':'", "")
+				.replace(".NET", "")
+				.replaceAll("(?<![\\w.])\\.[\\w./@-]+", "")
+				.replaceAll("(?<=\\w)[:;](?=\\w)", "")
+				.replaceAll("’[.,:;!?]’", "");
+	}
 
 	@Test
 	public void check_punctuation() {
 		SoftAssertions assertions = new SoftAssertions();
 		translated.keySet().stream()
-				.filter(key -> NON_BREAKING_SPACE_PUNCTUATIONS_WITHOUT_NON_BREAKING_SPACE
-						.matcher(
-								translated.getString(key)
-										// Ignore URL
-										.replaceAll("https?://(\\w+:\\w+@)?", "")
-										// Ignore string used for sample
-										.replace("':'", "")
-						)
-						.find()
-				)
-				.forEach(key -> assertions
-						.fail("Punctuation with non breaking space must be preceded with non-breaking space for key '" + key + "': " + translated.getString(key))
-				);
-		translated.keySet().stream()
-				.filter(key -> NON_SPACE_PUNCTUATIONS_WITH_SPACE_BEFORE.matcher(
-								translated.getString(key)
-										// Ignore ".NET" trademark
-										.replace(".NET", "")
-										// Ignore extension
-										.replaceAll("\\.[a-z]{3}(\\W)", "$1")
-						).find()
-				)
-				.forEach(key -> assertions
-						.fail("Punctuation without space before must not be preceded with a space for key '" + key + "': " + translated.getString(key))
-				);
-		translated.keySet().stream()
-				.filter(key -> SPACE_AFTER_PUNCTUATIONS.matcher(
-								translated.getString(key)
-						).matches()
-				)
-				.forEach(key -> assertions
-						.fail("Punctuation must be followed by space for key '" + key + "': " + translated.getString(key))
-				);
+				.filter(key -> !PUNCTUATION_EXCEPTIONS.contains(key))
+				.sorted()
+				.forEach(key -> {
+					String value = translated.getString(key);
+					String prose = prose(value);
+					assertions.assertThat(NON_BREAKING_SPACE_PUNCTUATIONS_WITHOUT_NON_BREAKING_SPACE.matcher(prose).find())
+							.describedAs("Punctuation with non breaking space must be preceded with non-breaking space for key '" + key + "': " + value)
+							.isFalse();
+					assertions.assertThat(NON_SPACE_PUNCTUATIONS_WITH_SPACE_BEFORE.matcher(prose).find())
+							.describedAs("Punctuation without space before must not be preceded with a space for key '" + key + "': " + value)
+							.isFalse();
+					assertions.assertThat(SPACE_AFTER_PUNCTUATIONS.matcher(prose).find())
+							.describedAs("Punctuation must be followed by space for key '" + key + "': " + value)
+							.isFalse();
+				});
+		assertions.assertAll();
 	}
 
 	private static final Pattern TERMINAL_PUNCTUATION = Pattern.compile("^.*?(?<terminalPunctuation>[,;.:?!…]?)$");
