@@ -18,7 +18,7 @@ services:
     # startup and cannot migrate back down, so a silent pull would be one-way.
     # This is the version the bundle is translated against -- see sonar.version
     # in pom.xml, which must stay in step with it.
-    image: sonarqube:26.10.0.133078-community
+    image: sonarqube:26.11.0.134175-community
     container_name: sqfr-sonarqube
     depends_on:
       db:

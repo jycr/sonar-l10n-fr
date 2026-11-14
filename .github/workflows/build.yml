@@ -27,7 +27,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          # 21, not 17: sonar-core and sonar-testing-harness 26.10 are compiled with class
+          # 21, not 17: sonar-core and sonar-testing-harness 26.11 are compiled with class
           # file major version 65. The plugin itself still targets Java 17, see pom.xml.
           java-version: 21
           # Replaces the hand-rolled actions/cache step for ~/.m2.
